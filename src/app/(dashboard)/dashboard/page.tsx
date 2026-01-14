@@ -19,7 +19,6 @@ import {
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { usePayment } from '@/contexts/payment-context'
 import { Paywall, LockedModuleCard } from '@/components/dashboard/paywall'
-import { useUser } from '@clerk/nextjs'
 
 const stats = [
   { icon: FileText, label: 'Total Prompts', value: '500+', color: 'text-indigo-400', bg: 'bg-indigo-500/10' },
@@ -94,8 +93,8 @@ const samplePrompts = [
 
 export default function DashboardPage() {
   const { hasPaid, isLoading } = usePayment()
-  const { user } = useUser()
-  const firstName = user?.firstName || 'there'
+  // Demo mode - no user authentication required
+  const firstName = 'there'
 
   if (isLoading) {
     return (

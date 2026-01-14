@@ -1,7 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { useUser } from '@clerk/nextjs'
+import { createContext, useContext, useState, ReactNode } from 'react'
 
 interface PaymentContextType {
   hasPaid: boolean
@@ -11,36 +10,17 @@ interface PaymentContextType {
 
 const PaymentContext = createContext<PaymentContextType | undefined>(undefined)
 
+// Simplified provider - always grants access in demo mode
+// When Clerk is configured properly, this can be updated to check payment status
 export function PaymentProvider({ children }: { children: ReactNode }) {
-  const { user, isLoaded } = useUser()
-  const [hasPaid, setHasPaid] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  // Demo mode: grant full access
+  const [hasPaid] = useState(true)
+  const [isLoading] = useState(false)
 
   const checkPaymentStatus = async () => {
-    if (!user) {
-      setHasPaid(false)
-      setIsLoading(false)
-      return
-    }
-
-    try {
-      // Check user's public metadata for payment status
-      // This can be set via Gumroad webhook
-      const paymentStatus = user.publicMetadata?.hasPaid as boolean
-      setHasPaid(paymentStatus || false)
-    } catch (error) {
-      console.error('Error checking payment status:', error)
-      setHasPaid(false)
-    } finally {
-      setIsLoading(false)
-    }
+    // No-op in demo mode
+    // When Clerk is configured, this would check user.publicMetadata?.hasPaid
   }
-
-  useEffect(() => {
-    if (isLoaded) {
-      checkPaymentStatus()
-    }
-  }, [user, isLoaded])
 
   return (
     <PaymentContext.Provider value={{ hasPaid, isLoading, checkPaymentStatus }}>
@@ -54,8 +34,8 @@ export function usePayment() {
   if (context === undefined) {
     // Return default values if not wrapped in provider (for SSR)
     return {
-      hasPaid: false,
-      isLoading: true,
+      hasPaid: true, // Grant access
+      isLoading: false,
       checkPaymentStatus: async () => {},
     }
   }

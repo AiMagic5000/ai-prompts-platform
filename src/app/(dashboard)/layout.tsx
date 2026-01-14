@@ -1,10 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import dynamic from 'next/dynamic'
 import { Logo } from '@/components/shared/logo'
 import { BusinessCTA } from '@/components/marketing/business-cta'
 import { PaymentProvider, usePayment } from '@/contexts/payment-context'
@@ -27,11 +26,11 @@ import {
 } from 'lucide-react'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 
-// Check if Clerk is configured
-const CLERK_CONFIGURED = !!(
-  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
-  !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.includes('placeholder')
-)
+// Check if Clerk is configured - must be done at runtime for server components
+function isClerkConfigured(): boolean {
+  const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  return !!(key && !key.includes('placeholder'))
+}
 
 // Mock user object for demo mode
 const DEMO_USER = {
@@ -41,27 +40,6 @@ const DEMO_USER = {
   emailAddresses: [{ emailAddress: 'demo@example.com' }],
   imageUrl: null,
 }
-
-// Dynamically import Clerk components only when configured
-const ClerkUserSection = CLERK_CONFIGURED
-  ? dynamic(
-      () => import('@/components/dashboard/clerk-user-section').then((mod) => mod.ClerkUserSection),
-      {
-        ssr: false,
-        loading: () => <UserSectionFallback hasPaid={false} />,
-      }
-    )
-  : null
-
-const ClerkUserAvatar = CLERK_CONFIGURED
-  ? dynamic(
-      () => import('@/components/dashboard/clerk-user-section').then((mod) => mod.ClerkUserAvatar),
-      {
-        ssr: false,
-        loading: () => <UserAvatarFallback />,
-      }
-    )
-  : null
 
 const navItems = [
   { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard', free: true },
@@ -76,8 +54,8 @@ const navItems = [
   { href: '/dashboard/settings', icon: Settings, label: 'Settings', free: true },
 ]
 
-// Fallback components for demo mode
-function UserSectionFallback({ hasPaid }: { hasPaid: boolean }) {
+// Demo mode user section
+function DemoUserSection({ hasPaid }: { hasPaid: boolean }) {
   return (
     <div className="p-4 border-t border-gray-800">
       <div className="flex items-center gap-3 mb-3">
@@ -100,7 +78,7 @@ function UserSectionFallback({ hasPaid }: { hasPaid: boolean }) {
   )
 }
 
-function UserAvatarFallback() {
+function DemoUserAvatar() {
   return (
     <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center">
       <User className="w-5 h-5 text-indigo-400" />
@@ -108,19 +86,15 @@ function UserAvatarFallback() {
   )
 }
 
-// Wrapper components
+// User section that renders demo mode always (for now, until Clerk is configured)
 function UserSection({ hasPaid }: { hasPaid: boolean }) {
-  if (!CLERK_CONFIGURED || !ClerkUserSection) {
-    return <UserSectionFallback hasPaid={hasPaid} />
-  }
-  return <ClerkUserSection hasPaid={hasPaid} />
+  // Always use demo mode for now
+  return <DemoUserSection hasPaid={hasPaid} />
 }
 
 function UserAvatar() {
-  if (!CLERK_CONFIGURED || !ClerkUserAvatar) {
-    return <UserAvatarFallback />
-  }
-  return <ClerkUserAvatar />
+  // Always use demo mode for now
+  return <DemoUserAvatar />
 }
 
 function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
