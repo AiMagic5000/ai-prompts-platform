@@ -1,9 +1,8 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Logo } from '@/components/shared/logo'
-import { CheckCircle, Sparkles, Gift, BookOpen, Zap, ArrowRight } from 'lucide-react'
+import { CheckCircle, Sparkles, Gift, BookOpen, Zap, ArrowRight, ExternalLink } from 'lucide-react'
 
 // Check if Clerk is configured
 const CLERK_CONFIGURED = !!(
@@ -11,83 +10,108 @@ const CLERK_CONFIGURED = !!(
   !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.includes('placeholder')
 )
 
-// Custom dark theme for Clerk (when configured)
-const customDarkTheme = {
+// Custom light theme for Clerk (when configured)
+const customLightTheme = {
   variables: {
     colorPrimary: '#6366f1',
-    colorBackground: '#1e293b',
-    colorText: '#f1f5f9',
-    colorTextSecondary: '#94a3b8',
-    colorInputBackground: '#334155',
-    colorInputText: '#f1f5f9',
+    colorBackground: '#ffffff',
+    colorText: '#1e293b',
+    colorTextSecondary: '#64748b',
+    colorInputBackground: '#f8fafc',
+    colorInputText: '#1e293b',
   },
 }
 
-// Demo mode sign-up page
-function DemoSignUp() {
-  const router = useRouter()
+// Gumroad payment link
+const GUMROAD_URL = 'https://coreypearson.gumroad.com/l/eayfol'
 
+// Payment required sign-up page - redirects to Gumroad
+function PaymentSignUp() {
   return (
     <div className="w-full max-w-md">
       {/* Header */}
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-white mb-2">Demo Mode Active</h2>
-        <p className="text-gray-400">
-          Authentication is currently disabled. You have full access to all features.
+        <h2 className="text-3xl font-bold text-slate-900 mb-2">Get Full Access</h2>
+        <p className="text-slate-600">
+          Complete your purchase to unlock all 1000+ AI prompts
         </p>
       </div>
 
-      {/* Demo Access Card */}
-      <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 shadow-2xl rounded-2xl p-8">
+      {/* Purchase Card */}
+      <div className="bg-slate-50 border border-slate-200 shadow-xl rounded-2xl p-8">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
-            <CheckCircle className="w-6 h-6 text-green-400" />
+          <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center">
+            <Sparkles className="w-6 h-6 text-indigo-600" />
           </div>
           <div>
-            <h3 className="font-semibold text-white">Full Access Granted</h3>
-            <p className="text-gray-400 text-sm">No sign-up required</p>
+            <h3 className="font-semibold text-slate-900">Lifetime Access</h3>
+            <p className="text-slate-500 text-sm">One-time payment, forever yours</p>
           </div>
+        </div>
+
+        {/* Price */}
+        <div className="text-center mb-6 py-4 bg-white border border-slate-200 rounded-xl">
+          <div className="flex items-center justify-center gap-3">
+            <span className="text-2xl text-slate-400 line-through">$199</span>
+            <span className="text-5xl font-bold text-slate-900">$39</span>
+          </div>
+          <span className="text-amber-600 font-semibold">80% OFF - Limited Time</span>
         </div>
 
         <div className="space-y-3 mb-6">
-          <div className="flex items-center gap-2 text-gray-300">
-            <CheckCircle className="w-4 h-4 text-green-400" />
-            <span>1000+ AI Prompts</span>
+          <div className="flex items-center gap-2 text-slate-700">
+            <CheckCircle className="w-4 h-4 text-green-500" />
+            <span>500+ Premium AI Prompts</span>
           </div>
-          <div className="flex items-center gap-2 text-gray-300">
-            <CheckCircle className="w-4 h-4 text-green-400" />
-            <span>250+ Automations</span>
+          <div className="flex items-center gap-2 text-slate-700">
+            <CheckCircle className="w-4 h-4 text-green-500" />
+            <span>500+ Bonus Prompts</span>
           </div>
-          <div className="flex items-center gap-2 text-gray-300">
-            <CheckCircle className="w-4 h-4 text-green-400" />
-            <span>Masterclass Access</span>
+          <div className="flex items-center gap-2 text-slate-700">
+            <CheckCircle className="w-4 h-4 text-green-500" />
+            <span>250+ n8n Automations</span>
           </div>
-          <div className="flex items-center gap-2 text-gray-300">
-            <CheckCircle className="w-4 h-4 text-green-400" />
+          <div className="flex items-center gap-2 text-slate-700">
+            <CheckCircle className="w-4 h-4 text-green-500" />
+            <span>Masterclass Training</span>
+          </div>
+          <div className="flex items-center gap-2 text-slate-700">
+            <CheckCircle className="w-4 h-4 text-green-500" />
             <span>AI Tools Guide</span>
+          </div>
+          <div className="flex items-center gap-2 text-slate-700">
+            <CheckCircle className="w-4 h-4 text-green-500" />
+            <span>30-Day Money Back Guarantee</span>
           </div>
         </div>
 
-        <button
-          onClick={() => router.push('/dashboard')}
-          className="w-full py-3 px-6 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg shadow-indigo-500/25 transition-all duration-200 hover:scale-[1.02]"
+        <a
+          href={GUMROAD_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 w-full py-3 px-6 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg shadow-indigo-500/25 transition-all duration-200 hover:scale-[1.02]"
         >
-          Go to Dashboard
-        </button>
+          Complete Purchase
+          <ExternalLink className="w-4 h-4" />
+        </a>
+
+        <p className="text-center text-slate-500 text-xs mt-4">
+          Secure payment via Gumroad
+        </p>
       </div>
 
       {/* Additional Links */}
       <div className="mt-8 text-center space-y-4">
-        <p className="text-gray-400 text-sm">
-          Already have an account?{' '}
-          <Link href="/sign-in" className="text-indigo-400 hover:text-indigo-300 font-medium">
+        <p className="text-slate-600 text-sm">
+          Already purchased?{' '}
+          <Link href="/sign-in" className="text-indigo-600 hover:text-indigo-500 font-medium">
             Sign in
           </Link>
         </p>
 
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-gray-500 hover:text-white text-sm transition-colors"
+          className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-sm transition-colors"
         >
           <ArrowRight className="w-4 h-4 rotate-180" />
           Back to home
@@ -105,26 +129,26 @@ function ClerkSignUp() {
     <div className="w-full max-w-md">
       {/* Header */}
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-white mb-2">Create your account</h2>
-        <p className="text-gray-400">
+        <h2 className="text-3xl font-bold text-slate-900 mb-2">Create your account</h2>
+        <p className="text-slate-600">
           Sign up to preview our AI prompts library
         </p>
       </div>
 
       {/* Mobile Benefits */}
-      <div className="lg:hidden bg-slate-800/30 border border-slate-700/50 rounded-xl p-4 mb-6">
-        <p className="text-sm text-gray-300 mb-3">With a free account you get:</p>
+      <div className="lg:hidden bg-slate-50 border border-slate-200 rounded-xl p-4 mb-6">
+        <p className="text-sm text-slate-700 mb-3">With a free account you get:</p>
         <ul className="space-y-2">
-          <li className="flex items-center gap-2 text-sm text-gray-400">
-            <CheckCircle className="w-4 h-4 text-green-400 shrink-0" />
+          <li className="flex items-center gap-2 text-sm text-slate-600">
+            <CheckCircle className="w-4 h-4 text-green-500 shrink-0" />
             Preview 10 sample prompts
           </li>
-          <li className="flex items-center gap-2 text-sm text-gray-400">
-            <CheckCircle className="w-4 h-4 text-green-400 shrink-0" />
+          <li className="flex items-center gap-2 text-sm text-slate-600">
+            <CheckCircle className="w-4 h-4 text-green-500 shrink-0" />
             See what is included before paying
           </li>
-          <li className="flex items-center gap-2 text-sm text-gray-400">
-            <CheckCircle className="w-4 h-4 text-green-400 shrink-0" />
+          <li className="flex items-center gap-2 text-sm text-slate-600">
+            <CheckCircle className="w-4 h-4 text-green-500 shrink-0" />
             Unlock all 1000+ prompts for just $39
           </li>
         </ul>
@@ -133,26 +157,26 @@ function ClerkSignUp() {
       {/* Clerk Sign Up */}
       <SignUp
         appearance={{
-          variables: customDarkTheme.variables,
+          variables: customLightTheme.variables,
           elements: {
             rootBox: 'w-full',
-            card: 'bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 shadow-2xl rounded-2xl',
+            card: 'bg-slate-50 border border-slate-200 shadow-xl rounded-2xl',
             headerTitle: 'hidden',
             headerSubtitle: 'hidden',
-            socialButtonsBlockButton: 'bg-white hover:bg-gray-100 border-0 text-slate-900 font-medium transition-all duration-200 hover:scale-[1.02]',
+            socialButtonsBlockButton: 'bg-white hover:bg-slate-50 border border-slate-200 text-slate-900 font-medium transition-all duration-200 hover:scale-[1.02] shadow-sm',
             socialButtonsBlockButtonText: 'text-slate-900 font-medium',
             socialButtonsBlockButtonArrow: 'text-slate-600',
-            dividerLine: 'bg-slate-600',
-            dividerText: 'text-gray-400 text-sm',
-            formFieldLabel: 'text-gray-300 font-medium',
-            formFieldInput: 'bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-500 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-lg',
+            dividerLine: 'bg-slate-200',
+            dividerText: 'text-slate-500 text-sm',
+            formFieldLabel: 'text-slate-700 font-medium',
+            formFieldInput: 'bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-lg',
             formButtonPrimary: 'bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 hover:scale-[1.02] shadow-lg shadow-indigo-500/25 font-semibold',
             footerAction: 'justify-center',
-            footerActionLink: 'text-indigo-400 hover:text-indigo-300 font-medium',
-            identityPreviewEditButton: 'text-indigo-400 hover:text-indigo-300',
-            formFieldAction: 'text-indigo-400 hover:text-indigo-300',
-            alertText: 'text-red-400',
-            formFieldSuccessText: 'text-green-400',
+            footerActionLink: 'text-indigo-600 hover:text-indigo-500 font-medium',
+            identityPreviewEditButton: 'text-indigo-600 hover:text-indigo-500',
+            formFieldAction: 'text-indigo-600 hover:text-indigo-500',
+            alertText: 'text-red-500',
+            formFieldSuccessText: 'text-green-500',
           },
           layout: {
             socialButtonsPlacement: 'top',
@@ -163,16 +187,16 @@ function ClerkSignUp() {
 
       {/* Additional Links */}
       <div className="mt-8 text-center space-y-4">
-        <p className="text-gray-400 text-sm">
+        <p className="text-slate-600 text-sm">
           Already have an account?{' '}
-          <Link href="/sign-in" className="text-indigo-400 hover:text-indigo-300 font-medium">
+          <Link href="/sign-in" className="text-indigo-600 hover:text-indigo-500 font-medium">
             Sign in
           </Link>
         </p>
 
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-gray-500 hover:text-white text-sm transition-colors"
+          className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-sm transition-colors"
         >
           <ArrowRight className="w-4 h-4 rotate-180" />
           Back to home
@@ -215,7 +239,7 @@ export default function SignUpPage() {
           </h1>
 
           <p className="text-xl text-gray-300 mb-10 max-w-md">
-            Create a free account to preview our collection. Unlock everything for just $39.
+            Get instant access to our complete collection. Unlock everything for just $39.
           </p>
 
           {/* What You Get */}
@@ -268,20 +292,20 @@ export default function SignUpPage() {
             </div>
           </div>
 
-          {/* Free Account Benefits */}
+          {/* Included Benefits */}
           <div className="space-y-3">
-            <p className="text-sm text-gray-400 font-medium">With your free account:</p>
+            <p className="text-sm text-gray-400 font-medium">What you get:</p>
             <div className="flex items-center gap-2 text-gray-300">
               <CheckCircle className="w-5 h-5 text-green-400 shrink-0" />
-              <span>Preview 10 sample prompts</span>
+              <span>Lifetime access to all content</span>
             </div>
             <div className="flex items-center gap-2 text-gray-300">
               <CheckCircle className="w-5 h-5 text-green-400 shrink-0" />
-              <span>See what&apos;s included before paying</span>
+              <span>30-day money back guarantee</span>
             </div>
             <div className="flex items-center gap-2 text-gray-300">
               <CheckCircle className="w-5 h-5 text-green-400 shrink-0" />
-              <span>Unlock everything for just $39</span>
+              <span>Free updates forever</span>
             </div>
           </div>
 
@@ -301,18 +325,18 @@ export default function SignUpPage() {
       </div>
 
       {/* Right Column - Sign Up Form */}
-      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-8 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-8 bg-white">
         {/* Mobile Logo */}
         <div className="lg:hidden mb-8">
           <Logo size="lg" />
         </div>
 
-        {CLERK_CONFIGURED ? <ClerkSignUp /> : <DemoSignUp />}
+        {CLERK_CONFIGURED ? <ClerkSignUp /> : <PaymentSignUp />}
 
         {/* Footer */}
         <div className="mt-12 text-center">
-          <p className="text-gray-600 text-xs">
-            By signing up, you agree to our Terms of Service and Privacy Policy
+          <p className="text-slate-500 text-xs">
+            By purchasing, you agree to our Terms of Service and Privacy Policy
           </p>
         </div>
       </div>

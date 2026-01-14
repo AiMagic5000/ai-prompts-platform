@@ -10,16 +10,16 @@ interface PaymentContextType {
 
 const PaymentContext = createContext<PaymentContextType | undefined>(undefined)
 
-// Simplified provider - always grants access in demo mode
-// When Clerk is configured properly, this can be updated to check payment status
+// Payment required - no free access to dashboard content
+// Users must complete purchase via Gumroad before accessing premium content
 export function PaymentProvider({ children }: { children: ReactNode }) {
-  // Demo mode: grant full access
-  const [hasPaid] = useState(true)
+  // Default: Not paid - users must purchase to access content
+  const [hasPaid] = useState(false)
   const [isLoading] = useState(false)
 
   const checkPaymentStatus = async () => {
-    // No-op in demo mode
     // When Clerk is configured, this would check user.publicMetadata?.hasPaid
+    // For now, payment verification happens via Gumroad redirect
   }
 
   return (
@@ -34,7 +34,7 @@ export function usePayment() {
   if (context === undefined) {
     // Return default values if not wrapped in provider (for SSR)
     return {
-      hasPaid: true, // Grant access
+      hasPaid: false, // Require payment
       isLoading: false,
       checkPaymentStatus: async () => {},
     }

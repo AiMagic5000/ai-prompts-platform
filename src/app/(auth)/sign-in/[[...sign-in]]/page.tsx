@@ -1,9 +1,8 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Logo } from '@/components/shared/logo'
-import { Sparkles, Zap, Shield, ArrowRight, CheckCircle } from 'lucide-react'
+import { Sparkles, Zap, Shield, ArrowRight, CheckCircle, ExternalLink } from 'lucide-react'
 
 // Check if Clerk is configured
 const CLERK_CONFIGURED = !!(
@@ -11,76 +10,110 @@ const CLERK_CONFIGURED = !!(
   !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.includes('placeholder')
 )
 
-// Custom dark theme for Clerk (when configured)
-const customDarkTheme = {
+// Custom light theme for Clerk (when configured)
+const customLightTheme = {
   variables: {
     colorPrimary: '#6366f1',
-    colorBackground: '#1e293b',
-    colorText: '#f1f5f9',
-    colorTextSecondary: '#94a3b8',
-    colorInputBackground: '#334155',
-    colorInputText: '#f1f5f9',
+    colorBackground: '#ffffff',
+    colorText: '#1e293b',
+    colorTextSecondary: '#64748b',
+    colorInputBackground: '#f8fafc',
+    colorInputText: '#1e293b',
   },
 }
 
-// Demo mode sign-in page
-function DemoSignIn() {
-  const router = useRouter()
+// Gumroad payment link
+const GUMROAD_URL = 'https://coreypearson.gumroad.com/l/eayfol'
 
+// User testimonial images (using professional stock photos)
+const userImages = [
+  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face',
+  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
+  'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
+  'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face',
+]
+
+// Payment required sign-in page - redirects to Gumroad
+function PaymentSignIn() {
   return (
     <div className="w-full max-w-md">
       {/* Header */}
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-white mb-2">Demo Mode Active</h2>
-        <p className="text-gray-400">
-          Authentication is currently disabled. You have full access to all features.
+        <h2 className="text-3xl font-bold text-slate-900 mb-2">Get Full Access</h2>
+        <p className="text-slate-600">
+          Complete your purchase to unlock all 1000+ AI prompts
         </p>
       </div>
 
-      {/* Demo Access Card */}
-      <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 shadow-2xl rounded-2xl p-8">
+      {/* Purchase Card */}
+      <div className="bg-slate-50 border border-slate-200 shadow-xl rounded-2xl p-8">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
-            <CheckCircle className="w-6 h-6 text-green-400" />
+          <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center">
+            <Sparkles className="w-6 h-6 text-indigo-600" />
           </div>
           <div>
-            <h3 className="font-semibold text-white">Full Access Granted</h3>
-            <p className="text-gray-400 text-sm">No sign-in required</p>
+            <h3 className="font-semibold text-slate-900">Lifetime Access</h3>
+            <p className="text-slate-500 text-sm">One-time payment, forever yours</p>
           </div>
+        </div>
+
+        {/* Price */}
+        <div className="text-center mb-6 py-4 bg-white border border-slate-200 rounded-xl">
+          <div className="flex items-center justify-center gap-3">
+            <span className="text-2xl text-slate-400 line-through">$199</span>
+            <span className="text-5xl font-bold text-slate-900">$39</span>
+          </div>
+          <span className="text-amber-600 font-semibold">80% OFF - Limited Time</span>
         </div>
 
         <div className="space-y-3 mb-6">
-          <div className="flex items-center gap-2 text-gray-300">
-            <CheckCircle className="w-4 h-4 text-green-400" />
-            <span>1000+ AI Prompts</span>
+          <div className="flex items-center gap-2 text-slate-700">
+            <CheckCircle className="w-4 h-4 text-green-500" />
+            <span>500+ Premium AI Prompts</span>
           </div>
-          <div className="flex items-center gap-2 text-gray-300">
-            <CheckCircle className="w-4 h-4 text-green-400" />
-            <span>250+ Automations</span>
+          <div className="flex items-center gap-2 text-slate-700">
+            <CheckCircle className="w-4 h-4 text-green-500" />
+            <span>500+ Bonus Prompts</span>
           </div>
-          <div className="flex items-center gap-2 text-gray-300">
-            <CheckCircle className="w-4 h-4 text-green-400" />
-            <span>Masterclass Access</span>
+          <div className="flex items-center gap-2 text-slate-700">
+            <CheckCircle className="w-4 h-4 text-green-500" />
+            <span>250+ n8n Automations</span>
           </div>
-          <div className="flex items-center gap-2 text-gray-300">
-            <CheckCircle className="w-4 h-4 text-green-400" />
+          <div className="flex items-center gap-2 text-slate-700">
+            <CheckCircle className="w-4 h-4 text-green-500" />
+            <span>Masterclass Training</span>
+          </div>
+          <div className="flex items-center gap-2 text-slate-700">
+            <CheckCircle className="w-4 h-4 text-green-500" />
             <span>AI Tools Guide</span>
+          </div>
+          <div className="flex items-center gap-2 text-slate-700">
+            <CheckCircle className="w-4 h-4 text-green-500" />
+            <span>30-Day Money Back Guarantee</span>
           </div>
         </div>
 
-        <button
-          onClick={() => router.push('/dashboard')}
-          className="w-full py-3 px-6 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg shadow-indigo-500/25 transition-all duration-200 hover:scale-[1.02]"
+        <a
+          href={GUMROAD_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 w-full py-3 px-6 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg shadow-indigo-500/25 transition-all duration-200 hover:scale-[1.02]"
         >
-          Go to Dashboard
-        </button>
+          Complete Purchase
+          <ExternalLink className="w-4 h-4" />
+        </a>
+
+        <p className="text-center text-slate-500 text-xs mt-4">
+          Secure payment via Gumroad
+        </p>
       </div>
 
       {/* Additional Links */}
       <div className="mt-8 text-center">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-gray-500 hover:text-white text-sm transition-colors"
+          className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-sm transition-colors"
         >
           <ArrowRight className="w-4 h-4 rotate-180" />
           Back to home
@@ -98,8 +131,8 @@ function ClerkSignIn() {
     <div className="w-full max-w-md">
       {/* Header */}
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-white mb-2">Welcome back</h2>
-        <p className="text-gray-400">
+        <h2 className="text-3xl font-bold text-slate-900 mb-2">Welcome back</h2>
+        <p className="text-slate-600">
           Sign in to access your AI prompts library
         </p>
       </div>
@@ -107,26 +140,26 @@ function ClerkSignIn() {
       {/* Clerk Sign In */}
       <SignIn
         appearance={{
-          variables: customDarkTheme.variables,
+          variables: customLightTheme.variables,
           elements: {
             rootBox: 'w-full',
-            card: 'bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 shadow-2xl rounded-2xl',
+            card: 'bg-slate-50 border border-slate-200 shadow-xl rounded-2xl',
             headerTitle: 'hidden',
             headerSubtitle: 'hidden',
-            socialButtonsBlockButton: 'bg-white hover:bg-gray-100 border-0 text-slate-900 font-medium transition-all duration-200 hover:scale-[1.02]',
+            socialButtonsBlockButton: 'bg-white hover:bg-slate-50 border border-slate-200 text-slate-900 font-medium transition-all duration-200 hover:scale-[1.02] shadow-sm',
             socialButtonsBlockButtonText: 'text-slate-900 font-medium',
             socialButtonsBlockButtonArrow: 'text-slate-600',
-            dividerLine: 'bg-slate-600',
-            dividerText: 'text-gray-400 text-sm',
-            formFieldLabel: 'text-gray-300 font-medium',
-            formFieldInput: 'bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-500 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-lg',
+            dividerLine: 'bg-slate-200',
+            dividerText: 'text-slate-500 text-sm',
+            formFieldLabel: 'text-slate-700 font-medium',
+            formFieldInput: 'bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-lg',
             formButtonPrimary: 'bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 hover:scale-[1.02] shadow-lg shadow-indigo-500/25 font-semibold',
             footerAction: 'justify-center',
-            footerActionLink: 'text-indigo-400 hover:text-indigo-300 font-medium',
-            identityPreviewEditButton: 'text-indigo-400 hover:text-indigo-300',
-            formFieldAction: 'text-indigo-400 hover:text-indigo-300',
-            alertText: 'text-red-400',
-            formFieldSuccessText: 'text-green-400',
+            footerActionLink: 'text-indigo-600 hover:text-indigo-500 font-medium',
+            identityPreviewEditButton: 'text-indigo-600 hover:text-indigo-500',
+            formFieldAction: 'text-indigo-600 hover:text-indigo-500',
+            alertText: 'text-red-500',
+            formFieldSuccessText: 'text-green-500',
           },
           layout: {
             socialButtonsPlacement: 'top',
@@ -137,16 +170,16 @@ function ClerkSignIn() {
 
       {/* Additional Links */}
       <div className="mt-8 text-center space-y-4">
-        <p className="text-gray-400 text-sm">
+        <p className="text-slate-600 text-sm">
           Don&apos;t have an account?{' '}
-          <Link href="/sign-up" className="text-indigo-400 hover:text-indigo-300 font-medium">
+          <Link href="/sign-up" className="text-indigo-600 hover:text-indigo-500 font-medium">
             Sign up for free
           </Link>
         </p>
 
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-gray-500 hover:text-white text-sm transition-colors"
+          className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-900 text-sm transition-colors"
         >
           <ArrowRight className="w-4 h-4 rotate-180" />
           Back to home
@@ -225,18 +258,16 @@ export default function SignInPage() {
             </div>
           </div>
 
-          {/* Social Proof */}
+          {/* Social Proof with Real Photos */}
           <div className="flex items-center gap-4">
             <div className="flex -space-x-3">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div
+              {userImages.map((img, i) => (
+                <img
                   key={i}
-                  className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 border-2 border-slate-900 flex items-center justify-center"
-                >
-                  <span className="text-white text-xs font-medium">
-                    {String.fromCharCode(64 + i)}
-                  </span>
-                </div>
+                  src={img}
+                  alt={`User ${i + 1}`}
+                  className="w-10 h-10 rounded-full border-2 border-slate-900 object-cover"
+                />
               ))}
             </div>
             <div>
@@ -253,18 +284,18 @@ export default function SignInPage() {
       </div>
 
       {/* Right Column - Sign In Form */}
-      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-8 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-8 bg-white">
         {/* Mobile Logo */}
         <div className="lg:hidden mb-8">
           <Logo size="lg" />
         </div>
 
-        {CLERK_CONFIGURED ? <ClerkSignIn /> : <DemoSignIn />}
+        {CLERK_CONFIGURED ? <ClerkSignIn /> : <PaymentSignIn />}
 
         {/* Footer */}
         <div className="mt-12 text-center">
-          <p className="text-gray-600 text-xs">
-            By signing in, you agree to our Terms of Service and Privacy Policy
+          <p className="text-gray-500 text-xs">
+            By purchasing, you agree to our Terms of Service and Privacy Policy
           </p>
         </div>
       </div>

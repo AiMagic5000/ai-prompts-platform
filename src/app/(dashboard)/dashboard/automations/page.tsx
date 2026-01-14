@@ -246,7 +246,7 @@ export default function AutomationsPage() {
               </div>
             </div>
             <motion.a
-              href="https://im.alwaysencrypted.com/s/HRRYpbj89zT8P83"
+              href="https://dashboard.startmybusiness.us/training"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
@@ -292,7 +292,7 @@ export default function AutomationsPage() {
                 </li>
               </ul>
               <motion.a
-                href="https://im.alwaysencrypted.com/s/HRRYpbj89zT8P83"
+                href="https://dashboard.startmybusiness.us/training"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
@@ -315,11 +315,11 @@ export default function AutomationsPage() {
                 Professional Setup Service
               </h3>
               <div className="text-center mb-4">
-                <span className="text-4xl font-bold text-white">$50</span>
-                <span className="text-gray-400 ml-2">one-time</span>
+                <span className="text-4xl font-bold text-white line-through text-gray-500">$50</span>
+                <span className="text-2xl font-bold text-green-400 ml-2">FREE</span>
               </div>
               <p className="text-gray-400 text-center mb-4">
-                Skip the setup hassle - our experts will configure everything for you in 24-48 hours.
+                Sign up within 24 hours and get professional setup completely FREE! Our experts will configure everything for you.
               </p>
               <ul className="space-y-2 mb-6">
                 <li className="flex items-center gap-2 text-gray-300 text-sm">
@@ -336,14 +336,14 @@ export default function AutomationsPage() {
                 </li>
               </ul>
               <motion.a
-                href="https://im.alwaysencrypted.com/s/HRRYpbj89zT8P83"
+                href="https://dashboard.startmybusiness.us/training"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="block w-full text-center px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-lg transition-colors"
               >
-                Get Professional Setup
+                Claim Free Setup - Sign Up Now
               </motion.a>
             </div>
           </div>
@@ -431,7 +431,7 @@ export default function AutomationsPage() {
               </div>
 
               <motion.a
-                href="https://im.alwaysencrypted.com/s/HRRYpbj89zT8P83"
+                href="https://dashboard.startmybusiness.us/training"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
@@ -461,7 +461,7 @@ export default function AutomationsPage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <motion.a
-              href="https://im.alwaysencrypted.com/s/HRRYpbj89zT8P83"
+              href="https://dashboard.startmybusiness.us/training"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
@@ -472,14 +472,14 @@ export default function AutomationsPage() {
               Access Free Automations
             </motion.a>
             <motion.a
-              href="https://im.alwaysencrypted.com/s/HRRYpbj89zT8P83"
+              href="https://dashboard.startmybusiness.us/training"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="inline-flex items-center gap-2 px-8 py-4 bg-indigo-500 text-white font-bold rounded-lg"
             >
-              Get $50 Setup Service
+              Get Free Setup (24hr offer)
             </motion.a>
           </div>
         </motion.div>
