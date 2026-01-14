@@ -22,7 +22,8 @@ import {
   User,
   Zap,
   Lock,
-  Crown
+  Crown,
+  LogOut
 } from 'lucide-react'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 
@@ -71,9 +72,13 @@ function DemoUserSection({ hasPaid }: { hasPaid: boolean }) {
           </p>
         </div>
       </div>
-      <div className="px-3 py-2 text-sm text-gray-500">
-        Demo Mode
-      </div>
+      <Link
+        href="/"
+        className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+      >
+        <LogOut className="w-4 h-4" />
+        Exit to Home
+      </Link>
     </div>
   )
 }

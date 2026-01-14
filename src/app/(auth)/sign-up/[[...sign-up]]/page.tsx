@@ -1,10 +1,186 @@
 'use client'
 
-import { SignUp } from '@clerk/nextjs'
-import { dark } from '@clerk/themes'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Logo } from '@/components/shared/logo'
 import { CheckCircle, Sparkles, Gift, BookOpen, Zap, ArrowRight } from 'lucide-react'
+
+// Check if Clerk is configured
+const CLERK_CONFIGURED = !!(
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
+  !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.includes('placeholder')
+)
+
+// Custom dark theme for Clerk (when configured)
+const customDarkTheme = {
+  variables: {
+    colorPrimary: '#6366f1',
+    colorBackground: '#1e293b',
+    colorText: '#f1f5f9',
+    colorTextSecondary: '#94a3b8',
+    colorInputBackground: '#334155',
+    colorInputText: '#f1f5f9',
+  },
+}
+
+// Demo mode sign-up page
+function DemoSignUp() {
+  const router = useRouter()
+
+  return (
+    <div className="w-full max-w-md">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-white mb-2">Demo Mode Active</h2>
+        <p className="text-gray-400">
+          Authentication is currently disabled. You have full access to all features.
+        </p>
+      </div>
+
+      {/* Demo Access Card */}
+      <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 shadow-2xl rounded-2xl p-8">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
+            <CheckCircle className="w-6 h-6 text-green-400" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-white">Full Access Granted</h3>
+            <p className="text-gray-400 text-sm">No sign-up required</p>
+          </div>
+        </div>
+
+        <div className="space-y-3 mb-6">
+          <div className="flex items-center gap-2 text-gray-300">
+            <CheckCircle className="w-4 h-4 text-green-400" />
+            <span>1000+ AI Prompts</span>
+          </div>
+          <div className="flex items-center gap-2 text-gray-300">
+            <CheckCircle className="w-4 h-4 text-green-400" />
+            <span>250+ Automations</span>
+          </div>
+          <div className="flex items-center gap-2 text-gray-300">
+            <CheckCircle className="w-4 h-4 text-green-400" />
+            <span>Masterclass Access</span>
+          </div>
+          <div className="flex items-center gap-2 text-gray-300">
+            <CheckCircle className="w-4 h-4 text-green-400" />
+            <span>AI Tools Guide</span>
+          </div>
+        </div>
+
+        <button
+          onClick={() => router.push('/dashboard')}
+          className="w-full py-3 px-6 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg shadow-indigo-500/25 transition-all duration-200 hover:scale-[1.02]"
+        >
+          Go to Dashboard
+        </button>
+      </div>
+
+      {/* Additional Links */}
+      <div className="mt-8 text-center space-y-4">
+        <p className="text-gray-400 text-sm">
+          Already have an account?{' '}
+          <Link href="/sign-in" className="text-indigo-400 hover:text-indigo-300 font-medium">
+            Sign in
+          </Link>
+        </p>
+
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-gray-500 hover:text-white text-sm transition-colors"
+        >
+          <ArrowRight className="w-4 h-4 rotate-180" />
+          Back to home
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+// Clerk sign-up page (only used when Clerk is configured)
+function ClerkSignUp() {
+  const { SignUp } = require('@clerk/nextjs')
+
+  return (
+    <div className="w-full max-w-md">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-white mb-2">Create your account</h2>
+        <p className="text-gray-400">
+          Sign up to preview our AI prompts library
+        </p>
+      </div>
+
+      {/* Mobile Benefits */}
+      <div className="lg:hidden bg-slate-800/30 border border-slate-700/50 rounded-xl p-4 mb-6">
+        <p className="text-sm text-gray-300 mb-3">With a free account you get:</p>
+        <ul className="space-y-2">
+          <li className="flex items-center gap-2 text-sm text-gray-400">
+            <CheckCircle className="w-4 h-4 text-green-400 shrink-0" />
+            Preview 10 sample prompts
+          </li>
+          <li className="flex items-center gap-2 text-sm text-gray-400">
+            <CheckCircle className="w-4 h-4 text-green-400 shrink-0" />
+            See what is included before paying
+          </li>
+          <li className="flex items-center gap-2 text-sm text-gray-400">
+            <CheckCircle className="w-4 h-4 text-green-400 shrink-0" />
+            Unlock all 1000+ prompts for just $39
+          </li>
+        </ul>
+      </div>
+
+      {/* Clerk Sign Up */}
+      <SignUp
+        appearance={{
+          variables: customDarkTheme.variables,
+          elements: {
+            rootBox: 'w-full',
+            card: 'bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 shadow-2xl rounded-2xl',
+            headerTitle: 'hidden',
+            headerSubtitle: 'hidden',
+            socialButtonsBlockButton: 'bg-white hover:bg-gray-100 border-0 text-slate-900 font-medium transition-all duration-200 hover:scale-[1.02]',
+            socialButtonsBlockButtonText: 'text-slate-900 font-medium',
+            socialButtonsBlockButtonArrow: 'text-slate-600',
+            dividerLine: 'bg-slate-600',
+            dividerText: 'text-gray-400 text-sm',
+            formFieldLabel: 'text-gray-300 font-medium',
+            formFieldInput: 'bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-500 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-lg',
+            formButtonPrimary: 'bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 hover:scale-[1.02] shadow-lg shadow-indigo-500/25 font-semibold',
+            footerAction: 'justify-center',
+            footerActionLink: 'text-indigo-400 hover:text-indigo-300 font-medium',
+            identityPreviewEditButton: 'text-indigo-400 hover:text-indigo-300',
+            formFieldAction: 'text-indigo-400 hover:text-indigo-300',
+            alertText: 'text-red-400',
+            formFieldSuccessText: 'text-green-400',
+          },
+          layout: {
+            socialButtonsPlacement: 'top',
+            socialButtonsVariant: 'blockButton',
+          },
+        }}
+      />
+
+      {/* Additional Links */}
+      <div className="mt-8 text-center space-y-4">
+        <p className="text-gray-400 text-sm">
+          Already have an account?{' '}
+          <Link href="/sign-in" className="text-indigo-400 hover:text-indigo-300 font-medium">
+            Sign in
+          </Link>
+        </p>
+
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-gray-500 hover:text-white text-sm transition-colors"
+        >
+          <ArrowRight className="w-4 h-4 rotate-180" />
+          Back to home
+        </Link>
+      </div>
+    </div>
+  )
+}
 
 export default function SignUpPage() {
   return (
@@ -131,83 +307,7 @@ export default function SignUpPage() {
           <Logo size="lg" />
         </div>
 
-        <div className="w-full max-w-md">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-2">Create your account</h2>
-            <p className="text-gray-400">
-              Sign up to preview our AI prompts library
-            </p>
-          </div>
-
-          {/* Mobile Benefits */}
-          <div className="lg:hidden bg-slate-800/30 border border-slate-700/50 rounded-xl p-4 mb-6">
-            <p className="text-sm text-gray-300 mb-3">With a free account you get:</p>
-            <ul className="space-y-2">
-              <li className="flex items-center gap-2 text-sm text-gray-400">
-                <CheckCircle className="w-4 h-4 text-green-400 shrink-0" />
-                Preview 10 sample prompts
-              </li>
-              <li className="flex items-center gap-2 text-sm text-gray-400">
-                <CheckCircle className="w-4 h-4 text-green-400 shrink-0" />
-                See what is included before paying
-              </li>
-              <li className="flex items-center gap-2 text-sm text-gray-400">
-                <CheckCircle className="w-4 h-4 text-green-400 shrink-0" />
-                Unlock all 1000+ prompts for just $39
-              </li>
-            </ul>
-          </div>
-
-          {/* Clerk Sign Up */}
-          <SignUp
-            appearance={{
-              baseTheme: dark,
-              elements: {
-                rootBox: 'w-full',
-                card: 'bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 shadow-2xl rounded-2xl',
-                headerTitle: 'hidden',
-                headerSubtitle: 'hidden',
-                socialButtonsBlockButton: 'bg-white hover:bg-gray-100 border-0 text-slate-900 font-medium transition-all duration-200 hover:scale-[1.02]',
-                socialButtonsBlockButtonText: 'text-slate-900 font-medium',
-                socialButtonsBlockButtonArrow: 'text-slate-600',
-                dividerLine: 'bg-slate-600',
-                dividerText: 'text-gray-400 text-sm',
-                formFieldLabel: 'text-gray-300 font-medium',
-                formFieldInput: 'bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-500 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-lg',
-                formButtonPrimary: 'bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 hover:scale-[1.02] shadow-lg shadow-indigo-500/25 font-semibold',
-                footerAction: 'justify-center',
-                footerActionLink: 'text-indigo-400 hover:text-indigo-300 font-medium',
-                identityPreviewEditButton: 'text-indigo-400 hover:text-indigo-300',
-                formFieldAction: 'text-indigo-400 hover:text-indigo-300',
-                alertText: 'text-red-400',
-                formFieldSuccessText: 'text-green-400',
-              },
-              layout: {
-                socialButtonsPlacement: 'top',
-                socialButtonsVariant: 'blockButton',
-              },
-            }}
-          />
-
-          {/* Additional Links */}
-          <div className="mt-8 text-center space-y-4">
-            <p className="text-gray-400 text-sm">
-              Already have an account?{' '}
-              <Link href="/sign-in" className="text-indigo-400 hover:text-indigo-300 font-medium">
-                Sign in
-              </Link>
-            </p>
-
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-gray-500 hover:text-white text-sm transition-colors"
-            >
-              <ArrowRight className="w-4 h-4 rotate-180" />
-              Back to home
-            </Link>
-          </div>
-        </div>
+        {CLERK_CONFIGURED ? <ClerkSignUp /> : <DemoSignUp />}
 
         {/* Footer */}
         <div className="mt-12 text-center">
