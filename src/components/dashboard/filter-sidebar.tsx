@@ -23,7 +23,7 @@ const categories = [
   { slug: 'video', label: 'Video Generation', emoji: '🎬' },
   { slug: 'seo', label: 'SEO & Marketing', emoji: '📈' },
   { slug: 'coding', label: 'Coding & Development', emoji: '💻' },
-  { slug: 'n8n', label: 'n8n Workflows', emoji: '⚡' },
+  { slug: 'n8n', label: 'N8N Workflows', emoji: '⚡' },
 ]
 
 // AI Tools matching the actual data (using exact tool names from data)
@@ -43,7 +43,7 @@ const aiTools = [
   { slug: 'Canva AI', label: 'Canva AI', emoji: '🖌️' },
   { slug: 'GitHub Copilot', label: 'GitHub Copilot', emoji: '👨‍💻' },
   { slug: 'Cursor', label: 'Cursor', emoji: '⌨️' },
-  { slug: 'n8n', label: 'n8n', emoji: '⚡' },
+  { slug: 'n8n', label: 'N8N', emoji: '⚡' },
 ]
 
 const difficulties = [

@@ -20,8 +20,8 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "PromptVault | 500+ Expert AI Prompts - ChatGPT, Claude, Midjourney | $39",
-    template: "%s | PromptVault",
+    default: "The Prompts Library | 500+ Expert AI Prompts - ChatGPT, Claude, Midjourney | $39",
+    template: "%s | The Prompts Library",
   },
   description:
     "Get 500+ expert-crafted AI prompts for ChatGPT, Claude, Gemini, Midjourney, Sora & more. 60% OFF - Only $39. Instant access, lifetime updates, 30-day guarantee.",
@@ -38,35 +38,35 @@ export const metadata: Metadata = {
     "AI art prompts",
     "video generation prompts",
   ],
-  authors: [{ name: "PromptVault by AlwaysEncrypted" }],
+  authors: [{ name: "The Prompts Library" }],
   creator: "AlwaysEncrypted",
   publisher: "AlwaysEncrypted",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://prompts.alwaysencrypted.com"
+    process.env.NEXT_PUBLIC_SITE_URL || "https://thepromptslibrary.com"
   ),
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "/",
-    siteName: "PromptVault",
-    title: "PromptVault | 500+ Expert AI Prompts - 60% OFF",
+    siteName: "The Prompts Library",
+    title: "The Prompts Library | 500+ Expert AI Prompts - 60% OFF",
     description:
       "Get 500+ expert-crafted AI prompts for ChatGPT, Claude, Midjourney, Sora & more. Only $39. Instant access.",
     images: [
       {
-        url: "/og-image.png",
+        url: "https://cdn.prod.website-files.com/6784053e7b7422e48efa5a84/69678ecdf20c640f6e0c25bb_500%20FREE%20Prompts%20-%20Sign%20Up%20NOW.png",
         width: 1200,
         height: 630,
-        alt: "PromptVault - AI Prompts Library",
+        alt: "500 FREE Prompts - Sign Up NOW | The Prompts Library",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PromptVault | 500+ Expert AI Prompts - 60% OFF",
+    title: "The Prompts Library | 500+ Expert AI Prompts - 60% OFF",
     description:
       "Get 500+ expert-crafted AI prompts for ChatGPT, Claude, Midjourney, Sora & more. Only $39.",
-    images: ["/og-image.png"],
+    images: ["https://cdn.prod.website-files.com/6784053e7b7422e48efa5a84/69678ecdf20c640f6e0c25bb_500%20FREE%20Prompts%20-%20Sign%20Up%20NOW.png"],
     creator: "@alwaysencrypted",
   },
   robots: {

@@ -166,7 +166,7 @@ export default function AutomationsPage() {
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <Zap className="w-6 h-6 text-amber-400" />
-                    <h1 className="text-2xl font-bold text-white">n8n Automation Templates</h1>
+                    <h1 className="text-2xl font-bold text-white">N8N Automation Templates</h1>
                     <Lock className="w-5 h-5 text-gray-500" />
                   </div>
                   <p className="text-gray-400">
@@ -238,7 +238,7 @@ export default function AutomationsPage() {
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <Zap className="w-6 h-6 text-amber-400" />
-                  <h1 className="text-2xl font-bold text-white">n8n Automation Templates</h1>
+                  <h1 className="text-2xl font-bold text-white">N8N Automation Templates</h1>
                 </div>
                 <p className="text-gray-400">
                   250+ ready-to-use automations to transform your business
@@ -304,7 +304,7 @@ export default function AutomationsPage() {
               </motion.a>
             </div>
 
-            {/* Professional n8n Setup Service */}
+            {/* Professional N8N Setup Service */}
             <div className="lg:w-96 bg-[#1A1A2E] border border-indigo-500/30 rounded-xl p-6">
               <div className="text-center mb-4">
                 <span className="text-amber-400 text-sm font-semibold uppercase tracking-wide">
@@ -312,7 +312,7 @@ export default function AutomationsPage() {
                 </span>
               </div>
               <h3 className="text-xl font-bold text-white text-center mb-2">
-                Your Own n8n Instance
+                Your Own N8N Instance
               </h3>
               <div className="text-center mb-2">
                 <span className="text-gray-500 text-sm line-through">$50 setup fee</span>
@@ -323,12 +323,12 @@ export default function AutomationsPage() {
                 <p className="text-gray-400 text-sm mt-1">then just $11.95/mo</p>
               </div>
               <p className="text-gray-400 text-center text-sm mb-4">
-                We&apos;ll set up your own self-hosted n8n instance so you can import all automations from the training and start building your own workflows.
+                We&apos;ll set up your own self-hosted N8N instance so you can import all automations from the training and start building your own workflows.
               </p>
               <ul className="space-y-2 mb-6">
                 <li className="flex items-center gap-2 text-gray-300 text-sm">
                   <CheckCircle className="w-4 h-4 text-green-400" />
-                  Your own dedicated n8n server
+                  Your own dedicated N8N server
                 </li>
                 <li className="flex items-center gap-2 text-gray-300 text-sm">
                   <CheckCircle className="w-4 h-4 text-green-400" />
@@ -351,7 +351,7 @@ export default function AutomationsPage() {
                 whileTap={{ scale: 0.98 }}
                 className="block w-full text-center px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold rounded-lg transition-colors shadow-lg shadow-amber-500/25"
               >
-                Claim Your Free n8n Setup
+                Claim Your Free N8N Setup
               </motion.a>
             </div>
           </div>
@@ -465,7 +465,7 @@ export default function AutomationsPage() {
           </h3>
           <p className="text-gray-400 max-w-2xl mx-auto mb-6">
             Get instant access to our complete library of 250+ automation templates.
-            Import them directly into n8n and start saving hours every day.
+            Import them directly into N8N and start saving hours every day.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <motion.a
@@ -487,7 +487,7 @@ export default function AutomationsPage() {
               whileTap={{ scale: 0.98 }}
               className="inline-flex items-center gap-2 px-8 py-4 bg-indigo-500 text-white font-bold rounded-lg"
             >
-              Get Your Own n8n - 2 Months FREE
+              Get Your Own N8N - 2 Months FREE
             </motion.a>
           </div>
         </motion.div>

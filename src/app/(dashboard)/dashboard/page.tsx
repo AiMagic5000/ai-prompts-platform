@@ -35,7 +35,7 @@ const categories = [
   { name: 'Video AI', slug: 'video', emoji: '🎬', count: 50 },
   { name: 'SEO', slug: 'seo', emoji: '📈', count: 75 },
   { name: 'Coding', slug: 'coding', emoji: '💻', count: 50 },
-  { name: 'n8n', slug: 'n8n', emoji: '⚡', count: 50 },
+  { name: 'N8N', slug: 'n8n', emoji: '⚡', count: 50 },
 ]
 
 const quickActions = [
@@ -55,7 +55,7 @@ const quickActions = [
   },
   {
     icon: Zap,
-    title: 'n8n Automations',
+    title: 'N8N Automations',
     description: '250+ ready-to-use workflows',
     href: '/dashboard/automations',
     color: 'from-orange-500 to-red-500',

@@ -129,10 +129,7 @@ export function Logo({
           transition={{ duration: 0.3, delay: 0.1 }}
         >
           <span className={`font-extrabold ${textSize} bg-gradient-to-r from-indigo-500 via-purple-500 to-purple-600 bg-clip-text text-transparent leading-tight`}>
-            PromptVault
-          </span>
-          <span className="text-[10px] text-gray-500 font-medium tracking-wider uppercase -mt-0.5">
-            AI Prompts Library
+            The Prompts Library
           </span>
         </motion.div>
       )}

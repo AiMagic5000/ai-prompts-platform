@@ -59,7 +59,7 @@ export function Hero() {
           >
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 text-sm font-medium mb-6">
               <Sparkles className="h-4 w-4 text-amber-500" />
-              2026&apos;s #1 AI Prompts Library
+              2026&apos;s #1 Prompts Library
             </span>
           </motion.div>
 
@@ -93,7 +93,7 @@ export function Hero() {
             className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto"
           >
             Stop wasting hours on trial and error. Get instant access to expert-tested prompts for{' '}
-            <span className="text-slate-900 font-semibold">ChatGPT, Claude, Midjourney, Sora</span> & more.
+            <span className="text-slate-900 font-semibold">ChatGPT, Claude, Midjourney, Sora, N8N</span> & more.
             Copy, paste, get results.
           </motion.p>
 
@@ -250,7 +250,7 @@ export function Hero() {
             { emoji: '🧠', label: 'Claude', href: '/dashboard/prompts?ai_model=claude' },
             { emoji: '🎨', label: 'Midjourney', href: '/dashboard/prompts?ai_model=midjourney' },
             { emoji: '🎬', label: 'Sora', href: '/dashboard/prompts?ai_model=sora' },
-            { emoji: '📣', label: 'Marketing', href: '/dashboard/prompts?category=seo' },
+            { emoji: '⚡', label: 'N8N', href: '/dashboard/automations' },
             { emoji: '💻', label: 'Coding', href: '/dashboard/prompts?category=coding' },
           ].map((category) => (
             <motion.div

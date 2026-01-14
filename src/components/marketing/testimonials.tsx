@@ -35,7 +35,7 @@ const testimonials: Testimonial[] = [
     role: "Content Strategist",
     company: "BrandVoice Agency",
     avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
-    quote: "The Claude prompts are incredibly well-crafted. Our client deliverables have improved dramatically, and the n8n automation prompts have streamlined our entire operation.",
+    quote: "The Claude prompts are incredibly well-crafted. Our client deliverables have improved dramatically, and the N8N automation prompts have streamlined our entire operation.",
     rating: 5
   },
   {

@@ -17,7 +17,7 @@ interface Module {
 }
 
 // Real educational YouTube videos for each module
-// Sources: freeCodeCamp, n8n Official, Kevin Stratvert, and other educational channels
+// Sources: freeCodeCamp, N8N Official, Kevin Stratvert, and other educational channels
 const modules: Module[] = [
   {
     id: 'module-1',
@@ -77,11 +77,11 @@ const modules: Module[] = [
   },
   {
     id: 'module-8',
-    title: 'Automation & n8n Workflows',
-    description: 'Build powerful AI-powered automations using n8n and other automation tools.',
+    title: 'Automation & N8N Workflows',
+    description: 'Build powerful AI-powered automations using N8N and other automation tools.',
     duration: '45 min',
-    videoId: '4BVTkqbn_tY', // n8n Official - Beginner Course Introduction
-    topics: ['AI in automation workflows', 'n8n + AI integration', 'Batch processing prompts', 'Error handling'],
+    videoId: '4BVTkqbn_tY', // N8N Official - Beginner Course Introduction
+    topics: ['AI in automation workflows', 'N8N + AI integration', 'Batch processing prompts', 'Error handling'],
   },
 ]
 

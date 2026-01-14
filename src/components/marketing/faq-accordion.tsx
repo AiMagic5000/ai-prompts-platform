@@ -43,7 +43,7 @@ const faqs = [
   },
   {
     question: 'Do you offer any discounts on your other services?',
-    answer: 'Yes! AI Prompts Library customers receive 10% off all services at startmybusiness.us (except tradelines). This includes business formation, payment processing setup, funnel building, and more.',
+    answer: 'Yes! The Prompts Library customers receive 10% off all services at startmybusiness.us (except tradelines). This includes business formation, payment processing setup, funnel building, and more.',
   },
 ]
 

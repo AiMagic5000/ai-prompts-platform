@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 
 const siteConfig = {
-  name: 'AI Prompts Platform',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://prompts.alwaysencrypted.com',
+  name: 'The Prompts Library',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://thepromptslibrary.com',
   description: '1000+ Expert-Crafted AI Prompts That Actually Work',
   twitter: '@alwaysencrypted',
 }
@@ -119,11 +119,11 @@ export function generateProductSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: 'AI Prompts Library',
+    name: 'The Prompts Library',
     description: '1000+ expert-crafted AI prompts for ChatGPT, Claude, Midjourney, and more.',
     brand: {
       '@type': 'Brand',
-      name: 'AI Prompts Platform',
+      name: 'The Prompts Library',
     },
     offers: {
       '@type': 'Offer',
@@ -187,7 +187,7 @@ export function generatePromptSchema(prompt: {
     dateModified: prompt.dateModified,
     creator: {
       '@type': 'Organization',
-      name: 'AI Prompts Platform',
+      name: 'The Prompts Library',
     },
     provider: {
       '@type': 'Organization',

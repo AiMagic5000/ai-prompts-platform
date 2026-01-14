@@ -12,7 +12,7 @@ import { generateHomePageSchema, generateFAQSchema } from '@/lib/seo'
 const faqs = [
   {
     question: 'What AI tools do these prompts work with?',
-    answer: 'Our prompts work with all major AI tools including ChatGPT (GPT-4, GPT-4o, GPT-4.5), Claude (Claude 3.5, Claude 4), Gemini, Copilot, Midjourney, DALL-E 3, Stable Diffusion, Leonardo AI, Sora, Runway, Pika, and many more.',
+    answer: 'Our prompts work with all major AI tools including ChatGPT (GPT-4, GPT-4o, GPT-4.5), Claude (Claude 3.5, Claude 4), Gemini, Copilot, Midjourney, DALL-E 3, Stable Diffusion, Leonardo AI, Sora, Runway, Pika, and N8N automation workflows.',
   },
   {
     question: 'How do I get the prompts after purchase?',

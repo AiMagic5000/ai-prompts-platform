@@ -77,7 +77,7 @@ export default function ResourcesPage() {
         <div className="container mx-auto px-4 py-6">
           <h1 className="text-2xl font-bold text-white mb-2">Resources</h1>
           <p className="text-gray-400">
-            Explore our business services and exclusive offers for AI Prompts Library customers
+            Explore our business services and exclusive offers for The Prompts Library customers
           </p>
         </div>
       </div>
@@ -97,7 +97,7 @@ export default function ResourcesPage() {
               <div>
                 <h2 className="text-lg font-bold text-white">Exclusive 10% Discount</h2>
                 <p className="text-gray-400 text-sm">
-                  AI Prompts Library customers receive 10% off all services (except tradelines)
+                  The Prompts Library customers receive 10% off all services (except tradelines)
                 </p>
               </div>
             </div>

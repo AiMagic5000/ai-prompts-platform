@@ -70,7 +70,7 @@ function PaymentSignUp() {
           </div>
           <div className="flex items-center gap-2 text-slate-700">
             <CheckCircle className="w-4 h-4 text-green-500" />
-            <span>250+ n8n Automations</span>
+            <span>250+ N8N Automations</span>
           </div>
           <div className="flex items-center gap-2 text-slate-700">
             <CheckCircle className="w-4 h-4 text-green-500" />
@@ -132,7 +132,7 @@ function ClerkSignUp() {
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-slate-900 mb-2">Create your account</h2>
         <p className="text-slate-600">
-          Sign up to preview our AI prompts library
+          Sign up to preview The Prompts Library
         </p>
       </div>
 
@@ -277,7 +277,7 @@ export default function SignUpPage() {
                 </div>
                 <div>
                   <p className="font-medium text-white">250+ Automations</p>
-                  <p className="text-xs text-gray-400">n8n workflows</p>
+                  <p className="text-xs text-gray-400">N8N workflows</p>
                 </div>
               </div>
 

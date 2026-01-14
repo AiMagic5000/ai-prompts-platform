@@ -10,11 +10,11 @@ const features = [
   'ChatGPT, Claude, Gemini Compatible',
   'Midjourney & DALL-E Image Prompts',
   'Sora & Runway Video Prompts',
+  'N8N Automation Workflows',
   'SEO & Marketing Prompts',
   'Coding & Development Prompts',
   'Instant Digital Access',
   'Lifetime Updates (Free)',
-  'Private Discord Community',
   '30-Day Money-Back Guarantee',
 ]
 
@@ -69,7 +69,7 @@ export function PricingCard() {
               {/* Header */}
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                  AI Prompts Library
+                  The Prompts Library
                 </h3>
                 <div className="flex items-center justify-center gap-3 mb-2">
                   <span className="text-slate-400 line-through text-2xl">$97</span>

@@ -36,9 +36,9 @@ const footerLinks = {
   legal: {
     title: 'Legal',
     links: [
-      { label: 'Privacy Policy', href: '/privacy' },
-      { label: 'Terms of Service', href: '/terms' },
-      { label: 'Refund Policy', href: '/refunds' },
+      { label: 'Privacy Policy', href: '/privacy-policy' },
+      { label: 'Terms of Service', href: '/terms-of-service' },
+      { label: 'Refund Policy', href: '/refund-policy' },
     ],
   },
 }
@@ -66,7 +66,7 @@ export function Footer() {
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-3">
               <span className="text-amber-400 text-sm font-medium">
-                AI Prompts customers get 10% off!
+                The Prompts Library customers get 10% off!
               </span>
               <motion.a
                 href="https://startmybusiness.us"
@@ -160,7 +160,7 @@ export function Footer() {
         {/* Discount Notice */}
         <div className="mt-8 p-4 bg-indigo-500/10 border border-indigo-500/20 rounded-lg">
           <p className="text-sm text-center text-indigo-300">
-            <span className="font-semibold">Special Offer:</span> AI Prompts Library customers receive 10% off all services at{' '}
+            <span className="font-semibold">Special Offer:</span> The Prompts Library customers receive 10% off all services at{' '}
             <a href="https://startmybusiness.us" target="_blank" rel="noopener noreferrer" className="underline hover:text-white">
               startmybusiness.us
             </a>{' '}

@@ -239,7 +239,7 @@ export default function SettingsPage() {
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-500">Plan</span>
-                        <span className="text-white">AI Prompts Library - Lifetime</span>
+                        <span className="text-white">The Prompts Library - Lifetime</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-500">Amount Paid</span>

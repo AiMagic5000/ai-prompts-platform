@@ -46,7 +46,7 @@ const navItems = [
   { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard', free: true },
   { href: '/dashboard/prompts', icon: FileText, label: 'All Prompts', badge: '500', free: false },
   { href: '/dashboard/bonus-prompts', icon: Gift, label: 'Bonus Prompts', badge: '500', special: true, free: false },
-  { href: '/dashboard/automations', icon: Zap, label: 'n8n Automations', badge: '250+', free: false },
+  { href: '/dashboard/automations', icon: Zap, label: 'N8N Automations', badge: '250+', free: false },
   { href: '/dashboard/masterclass', icon: GraduationCap, label: 'Masterclass', free: false },
   { href: '/dashboard/ai-tools-guide', icon: Wrench, label: 'AI Tools Guide', free: false },
   { href: '/dashboard/collections', icon: FolderOpen, label: 'My Collections', free: false },

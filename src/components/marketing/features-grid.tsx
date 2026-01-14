@@ -9,7 +9,8 @@ import {
   Shield,
   Clock,
   Brain,
-  Video
+  Video,
+  Workflow
 } from 'lucide-react'
 
 const features = [
@@ -52,6 +53,11 @@ const features = [
     icon: Video,
     title: 'Video Prompts',
     description: 'Create stunning videos with Sora, Runway, and Pika using our tested video generation prompts.',
+  },
+  {
+    icon: Workflow,
+    title: 'N8N Automations',
+    description: 'Build powerful AI automations with our N8N workflow templates. Automate repetitive tasks in minutes.',
   },
 ]
 

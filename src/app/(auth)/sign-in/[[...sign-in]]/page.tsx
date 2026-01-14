@@ -113,7 +113,7 @@ function ClerkSignIn() {
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-slate-900 mb-2">Welcome back</h2>
         <p className="text-slate-600">
-          Sign in to access your AI prompts library
+          Sign in to access your prompts library
         </p>
       </div>
 
@@ -223,7 +223,7 @@ export default function SignInPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-white">250+ Automations</h3>
-                <p className="text-gray-400 text-sm">Ready-to-use n8n workflows</p>
+                <p className="text-gray-400 text-sm">Ready-to-use N8N workflows</p>
               </div>
             </div>
 
