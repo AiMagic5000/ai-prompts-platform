@@ -1,8 +1,8 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { motion } from 'framer-motion'
+import { X, ChevronDown } from 'lucide-react'
+import { useState } from 'react'
 
 interface FilterSidebarProps {
   selectedCategory: string | null
@@ -14,40 +14,77 @@ interface FilterSidebarProps {
   onClearAll: () => void
 }
 
+// Categories matching the actual data
 const categories = [
-  { slug: 'text-generation', label: 'Text Generation', emoji: '💬' },
-  { slug: 'image-generation', label: 'Image Generation', emoji: '🎨' },
-  { slug: 'video-generation', label: 'Video Generation', emoji: '🎬' },
-  { slug: 'music-generation', label: 'Music Generation', emoji: '🎵' },
-  { slug: 'seo-marketing', label: 'SEO & Marketing', emoji: '📈' },
-  { slug: 'business-strategy', label: 'Business Strategy', emoji: '💼' },
-  { slug: 'coding-development', label: 'Coding & Dev', emoji: '💻' },
-  { slug: 'content-creation', label: 'Content Creation', emoji: '✍️' },
-  { slug: 'prompt-engineering', label: 'Prompt Engineering', emoji: '⚡' },
-  { slug: 'social-media', label: 'Social Media', emoji: '📱' },
-  { slug: 'productivity', label: 'Productivity', emoji: '⏰' },
-  { slug: 'creative-writing', label: 'Creative Writing', emoji: '📝' },
-  { slug: 'data-analysis', label: 'Data Analysis', emoji: '📊' },
-  { slug: 'real-estate', label: 'Real Estate', emoji: '🏠' },
+  { slug: 'chatgpt', label: 'ChatGPT', emoji: '🤖' },
+  { slug: 'claude', label: 'Claude', emoji: '🧠' },
+  { slug: 'gemini', label: 'Gemini', emoji: '💎' },
+  { slug: 'image', label: 'Image Generation', emoji: '🎨' },
+  { slug: 'video', label: 'Video Generation', emoji: '🎬' },
+  { slug: 'seo', label: 'SEO & Marketing', emoji: '📈' },
+  { slug: 'coding', label: 'Coding & Development', emoji: '💻' },
+  { slug: 'n8n', label: 'n8n Workflows', emoji: '⚡' },
 ]
 
+// AI Tools matching the actual data (using exact tool names from data)
 const aiTools = [
-  { slug: 'chatgpt', label: 'ChatGPT' },
-  { slug: 'claude', label: 'Claude' },
-  { slug: 'gemini', label: 'Gemini' },
-  { slug: 'midjourney', label: 'Midjourney' },
-  { slug: 'dall-e', label: 'DALL-E' },
-  { slug: 'stable-diffusion', label: 'Stable Diffusion' },
-  { slug: 'sora', label: 'Sora' },
-  { slug: 'runway', label: 'Runway' },
-  { slug: 'leonardo-ai', label: 'Leonardo AI' },
+  { slug: 'ChatGPT', label: 'ChatGPT', emoji: '🤖' },
+  { slug: 'Claude', label: 'Claude', emoji: '🧠' },
+  { slug: 'Gemini', label: 'Gemini', emoji: '💎' },
+  { slug: 'Midjourney', label: 'Midjourney', emoji: '🎨' },
+  { slug: 'DALL-E', label: 'DALL-E', emoji: '🖼️' },
+  { slug: 'Stable Diffusion', label: 'Stable Diffusion', emoji: '🌀' },
+  { slug: 'Sora', label: 'Sora', emoji: '🎬' },
+  { slug: 'Runway', label: 'Runway', emoji: '🎥' },
+  { slug: 'Pika', label: 'Pika', emoji: '📹' },
+  { slug: 'Kling', label: 'Kling', emoji: '🎞️' },
+  { slug: 'Leonardo AI', label: 'Leonardo AI', emoji: '🎭' },
+  { slug: 'Ideogram', label: 'Ideogram', emoji: '✨' },
+  { slug: 'Canva AI', label: 'Canva AI', emoji: '🖌️' },
+  { slug: 'GitHub Copilot', label: 'GitHub Copilot', emoji: '👨‍💻' },
+  { slug: 'Cursor', label: 'Cursor', emoji: '⌨️' },
+  { slug: 'n8n', label: 'n8n', emoji: '⚡' },
 ]
 
 const difficulties = [
-  { slug: 'beginner', label: 'Beginner', color: 'bg-green-100 text-green-800' },
-  { slug: 'intermediate', label: 'Intermediate', color: 'bg-amber-100 text-amber-800' },
-  { slug: 'advanced', label: 'Advanced', color: 'bg-red-100 text-red-800' },
+  { slug: 'beginner', label: 'Beginner', color: 'bg-green-500/20 text-green-400 border-green-500/30' },
+  { slug: 'intermediate', label: 'Intermediate', color: 'bg-amber-500/20 text-amber-400 border-amber-500/30' },
+  { slug: 'advanced', label: 'Advanced', color: 'bg-red-500/20 text-red-400 border-red-500/30' },
 ]
+
+function FilterSection({
+  title,
+  children,
+  defaultOpen = true
+}: {
+  title: string
+  children: React.ReactNode
+  defaultOpen?: boolean
+}) {
+  const [isOpen, setIsOpen] = useState(defaultOpen)
+
+  return (
+    <div className="border-b border-gray-800 pb-4">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center justify-between w-full py-2 text-left"
+      >
+        <span className="text-sm font-semibold text-white">{title}</span>
+        <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          className="mt-2 space-y-1"
+        >
+          {children}
+        </motion.div>
+      )}
+    </div>
+  )
+}
 
 export function FilterSidebar({
   selectedCategory,
@@ -61,100 +98,78 @@ export function FilterSidebar({
   const hasFilters = selectedCategory || selectedTool || selectedDifficulty
 
   return (
-    <div className="w-64 space-y-6">
-      {hasFilters && (
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-slate-700">Active Filters</span>
-          <Button variant="ghost" size="sm" onClick={onClearAll}>
-            Clear All
-          </Button>
-        </div>
-      )}
-
-      {/* Categories */}
-      <div>
-        <h3 className="text-sm font-semibold text-slate-900 mb-3">Categories</h3>
-        <div className="space-y-1">
-          {categories.map((category) => (
-            <button
-              key={category.slug}
-              onClick={() =>
-                onCategoryChange(
-                  selectedCategory === category.slug ? null : category.slug
-                )
-              }
-              className={cn(
-                'w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-left transition-colors',
-                selectedCategory === category.slug
-                  ? 'bg-indigo-50 text-indigo-600 font-medium'
-                  : 'text-slate-600 hover:bg-slate-100'
-              )}
-            >
-              <span>{category.emoji}</span>
-              <span>{category.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* AI Tools */}
-      <div>
-        <h3 className="text-sm font-semibold text-slate-900 mb-3">AI Tools</h3>
-        <div className="flex flex-wrap gap-2">
-          {aiTools.map((tool) => (
-            <Badge
-              key={tool.slug}
-              variant={selectedTool === tool.slug ? 'default' : 'outline'}
-              className={cn(
-                'cursor-pointer transition-colors',
-                selectedTool === tool.slug
-                  ? 'bg-indigo-600 text-white'
-                  : 'hover:bg-slate-100'
-              )}
-              onClick={() =>
-                onToolChange(selectedTool === tool.slug ? null : tool.slug)
-              }
-            >
-              {tool.label}
-            </Badge>
-          ))}
-        </div>
+    <div className="w-full lg:w-64 bg-[#1A1A2E] rounded-xl border border-gray-800 p-4">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-semibold text-white">Filters</h3>
+        {hasFilters && (
+          <button
+            onClick={onClearAll}
+            className="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1"
+          >
+            <X className="w-3 h-3" />
+            Clear all
+          </button>
+        )}
       </div>
 
       {/* Difficulty */}
-      <div>
-        <h3 className="text-sm font-semibold text-slate-900 mb-3">Difficulty</h3>
-        <div className="space-y-2">
-          {difficulties.map((diff) => (
+      <FilterSection title="Difficulty">
+        <div className="flex flex-wrap gap-2">
+          {difficulties.map((difficulty) => (
             <button
-              key={diff.slug}
-              onClick={() =>
-                onDifficultyChange(
-                  selectedDifficulty === diff.slug ? null : diff.slug
-                )
-              }
-              className={cn(
-                'w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm transition-colors',
-                selectedDifficulty === diff.slug
-                  ? 'ring-2 ring-indigo-500'
-                  : 'hover:bg-slate-100'
-              )}
+              key={difficulty.slug}
+              onClick={() => onDifficultyChange(selectedDifficulty === difficulty.slug ? null : difficulty.slug)}
+              className={`px-3 py-1 text-xs font-medium rounded-full border transition-colors ${
+                selectedDifficulty === difficulty.slug
+                  ? difficulty.color
+                  : 'bg-gray-800/50 text-gray-400 border-gray-700 hover:border-gray-600'
+              }`}
             >
-              <span>{diff.label}</span>
-              <span
-                className={cn(
-                  'px-2 py-0.5 rounded-full text-xs font-medium',
-                  diff.color
-                )}
-              >
-                {diff.slug === 'beginner' && 'Easy'}
-                {diff.slug === 'intermediate' && 'Medium'}
-                {diff.slug === 'advanced' && 'Hard'}
-              </span>
+              {difficulty.label}
             </button>
           ))}
         </div>
-      </div>
+      </FilterSection>
+
+      {/* Categories */}
+      <FilterSection title="Categories">
+        <div className="max-h-60 overflow-y-auto space-y-1 pr-2 scrollbar-thin scrollbar-thumb-gray-700">
+          {categories.map((category) => (
+            <button
+              key={category.slug}
+              onClick={() => onCategoryChange(selectedCategory === category.slug ? null : category.slug)}
+              className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+                selectedCategory === category.slug
+                  ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/30'
+                  : 'text-gray-400 hover:bg-gray-800/50 hover:text-white'
+              }`}
+            >
+              <span>{category.emoji}</span>
+              <span className="flex-1 text-left truncate">{category.label}</span>
+            </button>
+          ))}
+        </div>
+      </FilterSection>
+
+      {/* AI Tools */}
+      <FilterSection title="AI Tool">
+        <div className="max-h-60 overflow-y-auto space-y-1 pr-2 scrollbar-thin scrollbar-thumb-gray-700">
+          {aiTools.map((tool) => (
+            <button
+              key={tool.slug}
+              onClick={() => onToolChange(selectedTool === tool.slug ? null : tool.slug)}
+              className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+                selectedTool === tool.slug
+                  ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/30'
+                  : 'text-gray-400 hover:bg-gray-800/50 hover:text-white'
+              }`}
+            >
+              <span>{tool.emoji}</span>
+              <span className="flex-1 text-left">{tool.label}</span>
+            </button>
+          ))}
+        </div>
+      </FilterSection>
     </div>
   )
 }

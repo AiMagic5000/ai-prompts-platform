@@ -1,9 +1,6 @@
 'use client'
 
-import { useState } from 'react'
 import { Search, X } from 'lucide-react'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
 
 interface SearchBarProps {
   value: string
@@ -14,23 +11,21 @@ interface SearchBarProps {
 export function SearchBar({ value, onChange, placeholder = 'Search prompts...' }: SearchBarProps) {
   return (
     <div className="relative">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-      <Input
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+      <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="pl-10 pr-10"
+        className="w-full pl-10 pr-10 py-2.5 bg-[#1A1A2E] border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-colors"
       />
       {value && (
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8"
+        <button
           onClick={() => onChange('')}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
         >
-          <X className="h-4 w-4" />
-        </Button>
+          <X className="w-4 h-4" />
+        </button>
       )}
     </div>
   )

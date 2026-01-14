@@ -1,123 +1,28 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { motion } from 'framer-motion'
 import { SearchBar } from '@/components/dashboard/search-bar'
 import { FilterSidebar } from '@/components/dashboard/filter-sidebar'
 import { PromptCard } from '@/components/dashboard/prompt-card'
-import { Button } from '@/components/ui/button'
-import { Grid, List } from 'lucide-react'
-import { cn } from '@/lib/utils'
-
-// Sample prompts data - in production, this would come from Supabase
-const samplePrompts = [
-  {
-    id: '1',
-    title: 'Expert Business Consultant',
-    slug: 'expert-business-consultant',
-    category: 'business-strategy',
-    prompt_text: `You are a senior business consultant with 20 years of experience helping startups scale to $10M+ revenue. I need help with [BUSINESS_CHALLENGE].
-
-Please provide:
-1. A diagnostic analysis of the situation
-2. 3 strategic options with pros/cons
-3. Your recommended approach with implementation steps
-4. Key metrics to track success
-5. Potential risks and mitigation strategies`,
-    ai_tools: ['chatgpt', 'claude', 'gemini'],
-    difficulty: 'intermediate',
-    is_pro: false,
-    is_featured: true,
-  },
-  {
-    id: '2',
-    title: 'Content Marketing Strategy',
-    slug: 'content-marketing-strategy',
-    category: 'seo-marketing',
-    prompt_text: `Act as a content marketing strategist who has generated millions in revenue through content. I want to create a content strategy for [BUSINESS_NICHE].`,
-    ai_tools: ['chatgpt', 'claude'],
-    difficulty: 'intermediate',
-    is_pro: true,
-    is_featured: true,
-  },
-  {
-    id: '3',
-    title: 'Professional Product Photography',
-    slug: 'professional-product-photography',
-    category: 'image-generation',
-    prompt_text: `Professional product photography of [PRODUCT] on a clean white marble surface, soft natural window lighting from the left, shallow depth of field, 85mm lens, high-end commercial photography style`,
-    ai_tools: ['midjourney', 'dall-e', 'stable-diffusion'],
-    difficulty: 'beginner',
-    is_pro: false,
-    is_featured: true,
-  },
-  {
-    id: '4',
-    title: 'Code Review Expert',
-    slug: 'code-review-expert',
-    category: 'coding-development',
-    prompt_text: `You are a senior software engineer conducting a thorough code review. Analyze the following [LANGUAGE] code for bugs, performance, security, best practices, and readability.`,
-    ai_tools: ['chatgpt', 'claude', 'copilot'],
-    difficulty: 'advanced',
-    is_pro: true,
-    is_featured: true,
-  },
-  {
-    id: '5',
-    title: 'Product Reveal Animation',
-    slug: 'product-reveal-animation',
-    category: 'video-generation',
-    prompt_text: `A sleek 5-second product reveal animation: [PRODUCT] emerges from soft particles of light, camera slowly orbits around the object, premium dark gradient background`,
-    ai_tools: ['sora', 'runway', 'pika'],
-    difficulty: 'intermediate',
-    is_pro: true,
-    is_featured: true,
-  },
-  {
-    id: '6',
-    title: 'SEO Article Writer',
-    slug: 'seo-article-writer',
-    category: 'content-creation',
-    prompt_text: `You are an expert SEO content writer. Write a comprehensive article about "[TOPIC]" targeting the keyword "[KEYWORD]".`,
-    ai_tools: ['chatgpt', 'claude'],
-    difficulty: 'beginner',
-    is_pro: false,
-    is_featured: false,
-  },
-  {
-    id: '7',
-    title: 'Universal Prompt Improver',
-    slug: 'universal-prompt-improver',
-    category: 'prompt-engineering',
-    prompt_text: `You are an expert prompt engineer. Take the following prompt and improve it to get better AI outputs. Add role definition, context, format requirements, and quality criteria.`,
-    ai_tools: ['chatgpt', 'claude', 'gemini'],
-    difficulty: 'intermediate',
-    is_pro: true,
-    is_featured: true,
-  },
-  {
-    id: '8',
-    title: 'LinkedIn Post Generator',
-    slug: 'linkedin-post-generator',
-    category: 'social-media',
-    prompt_text: `Write a viral LinkedIn post about [TOPIC] that will drive engagement. Start with a compelling first line, use short paragraphs, include hashtags, end with a question.`,
-    ai_tools: ['chatgpt', 'claude'],
-    difficulty: 'beginner',
-    is_pro: false,
-    is_featured: false,
-  },
-]
+import { ThemeToggle } from '@/components/ui/theme-toggle'
+import { Paywall } from '@/components/dashboard/paywall'
+import { usePayment } from '@/contexts/payment-context'
+import { Grid, List, Filter, X, Lock } from 'lucide-react'
+import promptsData from '@/data/prompts-main.json'
 
 export default function PromptsPage() {
+  const { hasPaid, isLoading } = usePayment()
   const [search, setSearch] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedTool, setSelectedTool] = useState<string | null>(null)
   const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null)
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [favorites, setFavorites] = useState<string[]>([])
+  const [showMobileFilters, setShowMobileFilters] = useState(false)
 
   const filteredPrompts = useMemo(() => {
-    return samplePrompts.filter((prompt) => {
-      // Search filter
+    return promptsData.prompts.filter((prompt) => {
       if (search) {
         const searchLower = search.toLowerCase()
         const matchesSearch =
@@ -126,31 +31,16 @@ export default function PromptsPage() {
           prompt.category.toLowerCase().includes(searchLower)
         if (!matchesSearch) return false
       }
-
-      // Category filter
-      if (selectedCategory && prompt.category !== selectedCategory) {
-        return false
-      }
-
-      // Tool filter
-      if (selectedTool && !prompt.ai_tools.includes(selectedTool)) {
-        return false
-      }
-
-      // Difficulty filter
-      if (selectedDifficulty && prompt.difficulty !== selectedDifficulty) {
-        return false
-      }
-
+      if (selectedCategory && prompt.category !== selectedCategory) return false
+      if (selectedTool && !prompt.ai_tools.includes(selectedTool)) return false
+      if (selectedDifficulty && prompt.difficulty !== selectedDifficulty) return false
       return true
     })
   }, [search, selectedCategory, selectedTool, selectedDifficulty])
 
   const handleFavorite = (id: string) => {
     setFavorites((prev) =>
-      prev.includes(id)
-        ? prev.filter((fid) => fid !== id)
-        : [...prev, id]
+      prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]
     )
   }
 
@@ -161,94 +51,256 @@ export default function PromptsPage() {
     setSearch('')
   }
 
-  return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900">All Prompts</h1>
-          <p className="text-slate-600">
-            {filteredPrompts.length} prompts found
-          </p>
+  const hasFilters = selectedCategory || selectedTool || selectedDifficulty || search
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#0F0F23] flex items-center justify-center">
+        <div className="animate-spin w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full" />
+      </div>
+    )
+  }
+
+  // Show paywall for non-paying users
+  if (!hasPaid) {
+    return (
+      <div className="min-h-screen bg-[#0F0F23] relative">
+        {/* Header */}
+        <div className="border-b border-gray-800 bg-[#0a0a1a]">
+          <div className="p-4 lg:p-6">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-xl lg:text-2xl font-bold text-white">All Prompts</h1>
+                  <Lock className="w-5 h-5 text-amber-400" />
+                </div>
+                <p className="text-gray-400 text-sm">
+                  500+ expert-crafted prompts - Unlock with purchase
+                </p>
+              </div>
+              <ThemeToggle />
+            </div>
+          </div>
         </div>
 
-        <div className="flex items-center gap-4">
-          <div className="w-64">
-            <SearchBar value={search} onChange={setSearch} />
-          </div>
-          <div className="flex border rounded-lg overflow-hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setViewMode('grid')}
-              className={cn(
-                'rounded-none',
-                viewMode === 'grid' && 'bg-slate-100'
-              )}
-            >
-              <Grid className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setViewMode('list')}
-              className={cn(
-                'rounded-none',
-                viewMode === 'list' && 'bg-slate-100'
-              )}
-            >
-              <List className="h-4 w-4" />
-            </Button>
+        {/* Locked Content Preview */}
+        <div className="p-4 lg:p-6">
+          <div className="relative">
+            {/* Blurred preview of prompts */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 blur-sm opacity-50 pointer-events-none">
+              {promptsData.prompts.slice(0, 6).map((prompt) => (
+                <div
+                  key={prompt.id}
+                  className="bg-[#1A1A2E] rounded-xl border border-gray-800 p-5"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 text-xs rounded">
+                      {prompt.category}
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-white mb-2">{prompt.title}</h3>
+                  <p className="text-sm text-gray-400 line-clamp-2">{prompt.prompt_text}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Paywall Overlay */}
+            <Paywall variant="overlay" />
           </div>
         </div>
       </div>
+    )
+  }
 
-      {/* Main Content */}
-      <div className="flex gap-6">
-        {/* Sidebar */}
-        <div className="hidden lg:block">
-          <FilterSidebar
-            selectedCategory={selectedCategory}
-            selectedTool={selectedTool}
-            selectedDifficulty={selectedDifficulty}
-            onCategoryChange={setSelectedCategory}
-            onToolChange={setSelectedTool}
-            onDifficultyChange={setSelectedDifficulty}
-            onClearAll={clearAllFilters}
-          />
-        </div>
-
-        {/* Prompts Grid/List */}
-        <div className="flex-1">
-          {filteredPrompts.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-slate-600 mb-4">
-                No prompts found matching your criteria.
+  return (
+    <div className="min-h-screen bg-[#0F0F23]">
+      {/* Header */}
+      <div className="border-b border-gray-800 bg-[#0a0a1a] sticky top-0 z-20">
+        <div className="p-4 lg:p-6">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div>
+              <h1 className="text-xl lg:text-2xl font-bold text-white">All Prompts</h1>
+              <p className="text-gray-400 text-sm">
+                {filteredPrompts.length} of {promptsData.prompts.length} prompts
               </p>
-              <Button variant="outline" onClick={clearAllFilters}>
-                Clear Filters
-              </Button>
             </div>
-          ) : (
-            <div
-              className={cn(
-                viewMode === 'grid'
-                  ? 'grid md:grid-cols-2 xl:grid-cols-3 gap-4'
-                  : 'space-y-4'
+
+            <div className="flex items-center gap-3">
+              {/* Theme Toggle */}
+              <ThemeToggle />
+
+              {/* Search */}
+              <div className="flex-1 lg:w-80">
+                <SearchBar value={search} onChange={setSearch} />
+              </div>
+
+              {/* Mobile filter toggle */}
+              <button
+                onClick={() => setShowMobileFilters(true)}
+                className="lg:hidden p-2.5 bg-[#1A1A2E] border border-gray-800 rounded-lg text-gray-400 hover:text-white"
+              >
+                <Filter className="w-5 h-5" />
+              </button>
+
+              {/* View toggle */}
+              <div className="hidden sm:flex border border-gray-800 rounded-lg overflow-hidden">
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`p-2.5 transition-colors ${
+                    viewMode === 'grid'
+                      ? 'bg-indigo-500/10 text-indigo-400'
+                      : 'bg-[#1A1A2E] text-gray-400 hover:text-white'
+                  }`}
+                >
+                  <Grid className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`p-2.5 transition-colors ${
+                    viewMode === 'list'
+                      ? 'bg-indigo-500/10 text-indigo-400'
+                      : 'bg-[#1A1A2E] text-gray-400 hover:text-white'
+                  }`}
+                >
+                  <List className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Active filters */}
+          {hasFilters && (
+            <div className="flex flex-wrap items-center gap-2 mt-4">
+              <span className="text-sm text-gray-500">Active filters:</span>
+              {selectedCategory && (
+                <span className="px-2 py-1 bg-indigo-500/10 text-indigo-400 text-xs rounded-full flex items-center gap-1">
+                  {selectedCategory}
+                  <button onClick={() => setSelectedCategory(null)}>
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
               )}
-            >
-              {filteredPrompts.map((prompt) => (
-                <PromptCard
-                  key={prompt.id}
-                  prompt={prompt}
-                  onFavorite={handleFavorite}
-                  isFavorited={favorites.includes(prompt.id)}
-                />
-              ))}
+              {selectedTool && (
+                <span className="px-2 py-1 bg-purple-500/10 text-purple-400 text-xs rounded-full flex items-center gap-1">
+                  {selectedTool}
+                  <button onClick={() => setSelectedTool(null)}>
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              )}
+              {selectedDifficulty && (
+                <span className="px-2 py-1 bg-amber-500/10 text-amber-400 text-xs rounded-full flex items-center gap-1">
+                  {selectedDifficulty}
+                  <button onClick={() => setSelectedDifficulty(null)}>
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              )}
+              <button
+                onClick={clearAllFilters}
+                className="text-xs text-gray-400 hover:text-white underline"
+              >
+                Clear all
+              </button>
             </div>
           )}
         </div>
       </div>
+
+      <div className="p-4 lg:p-6">
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Desktop Sidebar */}
+          <div className="hidden lg:block w-64 shrink-0">
+            <div className="sticky top-6">
+              <FilterSidebar
+                selectedCategory={selectedCategory}
+                selectedTool={selectedTool}
+                selectedDifficulty={selectedDifficulty}
+                onCategoryChange={setSelectedCategory}
+                onToolChange={setSelectedTool}
+                onDifficultyChange={setSelectedDifficulty}
+                onClearAll={clearAllFilters}
+              />
+            </div>
+          </div>
+
+          {/* Prompts Grid */}
+          <div className="flex-1 min-w-0">
+            {filteredPrompts.length === 0 ? (
+              <div className="text-center py-12 bg-[#1A1A2E] rounded-xl border border-gray-800">
+                <p className="text-gray-400 mb-4">
+                  No prompts found matching your criteria.
+                </p>
+                <button
+                  onClick={clearAllFilters}
+                  className="px-4 py-2 bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 rounded-lg text-sm hover:bg-indigo-500/20"
+                >
+                  Clear Filters
+                </button>
+              </div>
+            ) : (
+              <div
+                className={
+                  viewMode === 'grid'
+                    ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4'
+                    : 'space-y-4'
+                }
+              >
+                {filteredPrompts.map((prompt, index) => (
+                  <motion.div
+                    key={prompt.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: Math.min(index * 0.02, 0.5) }}
+                  >
+                    <PromptCard
+                      prompt={prompt}
+                      onFavorite={handleFavorite}
+                      isFavorited={favorites.includes(prompt.id)}
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Filters Drawer */}
+      {showMobileFilters && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setShowMobileFilters(false)}
+          />
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            className="absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-[#0a0a1a] border-l border-gray-800 p-4 overflow-y-auto"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-white">Filters</h3>
+              <button
+                onClick={() => setShowMobileFilters(false)}
+                className="p-2 text-gray-400 hover:text-white"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <FilterSidebar
+              selectedCategory={selectedCategory}
+              selectedTool={selectedTool}
+              selectedDifficulty={selectedDifficulty}
+              onCategoryChange={setSelectedCategory}
+              onToolChange={setSelectedTool}
+              onDifficultyChange={setSelectedDifficulty}
+              onClearAll={clearAllFilters}
+            />
+          </motion.div>
+        </div>
+      )}
     </div>
   )
 }

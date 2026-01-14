@@ -1,37 +1,44 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from "next"
+import { Inter, JetBrains_Mono } from "next/font/google"
+import { ConditionalClerkProvider } from "@/components/providers/clerk-provider"
+import { ThemeProvider } from "@/components/providers/theme-provider"
+import "./globals.css"
+
+export const dynamic = 'force-dynamic'
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
-});
+})
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
   display: "swap",
-});
+})
 
 export const metadata: Metadata = {
   title: {
-    default: "AI Prompts Platform | 1000+ Expert-Crafted Prompts That Work",
-    template: "%s | AI Prompts Platform",
+    default: "PromptVault | 500+ Expert AI Prompts - ChatGPT, Claude, Midjourney | $39",
+    template: "%s | PromptVault",
   },
   description:
-    "Get instant access to 1000+ expert-tested prompts for ChatGPT, Claude, Midjourney, and more. Copy, paste, get results. One-time payment, lifetime access.",
+    "Get 500+ expert-crafted AI prompts for ChatGPT, Claude, Gemini, Midjourney, Sora & more. 60% OFF - Only $39. Instant access, lifetime updates, 30-day guarantee.",
   keywords: [
     "AI prompts",
     "ChatGPT prompts",
     "Claude prompts",
     "Midjourney prompts",
-    "AI art prompts",
+    "DALL-E prompts",
+    "Sora prompts",
     "prompt engineering",
-    "AI writing prompts",
-    "image generation prompts",
+    "AI automation",
+    "n8n workflows",
+    "AI art prompts",
+    "video generation prompts",
   ],
-  authors: [{ name: "AlwaysEncrypted" }],
+  authors: [{ name: "PromptVault by AlwaysEncrypted" }],
   creator: "AlwaysEncrypted",
   publisher: "AlwaysEncrypted",
   metadataBase: new URL(
@@ -41,24 +48,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "/",
-    siteName: "AI Prompts Platform",
-    title: "AI Prompts Platform | 1000+ Expert-Crafted Prompts That Work",
+    siteName: "PromptVault",
+    title: "PromptVault | 500+ Expert AI Prompts - 60% OFF",
     description:
-      "Get instant access to 1000+ expert-tested prompts for ChatGPT, Claude, Midjourney, and more.",
+      "Get 500+ expert-crafted AI prompts for ChatGPT, Claude, Midjourney, Sora & more. Only $39. Instant access.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "AI Prompts Platform",
+        alt: "PromptVault - AI Prompts Library",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Prompts Platform | 1000+ Expert-Crafted Prompts That Work",
+    title: "PromptVault | 500+ Expert AI Prompts - 60% OFF",
     description:
-      "Get instant access to 1000+ expert-tested prompts for ChatGPT, Claude, Midjourney, and more.",
+      "Get 500+ expert-crafted AI prompts for ChatGPT, Claude, Midjourney, Sora & more. Only $39.",
     images: ["/og-image.png"],
     creator: "@alwaysencrypted",
   },
@@ -73,25 +80,30 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="dark">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#6366f1" />
+        <meta name="theme-color" content="#0F0F23" />
+        <meta name="ai-content-declaration" content="AI-powered prompts library" />
       </head>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-foreground min-h-screen`}
       >
-        {children}
+        <ThemeProvider>
+          <ConditionalClerkProvider>
+            {children}
+          </ConditionalClerkProvider>
+        </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
