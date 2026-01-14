@@ -4,10 +4,11 @@ import Link from 'next/link'
 import { Logo } from '@/components/shared/logo'
 import { CheckCircle, Sparkles, Gift, BookOpen, Zap, ArrowRight, ExternalLink } from 'lucide-react'
 
-// Check if Clerk is configured
+// Check if Clerk is actually configured with real keys
 const CLERK_CONFIGURED = !!(
   process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
-  !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.includes('placeholder')
+  !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.includes('placeholder') &&
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.startsWith('pk_')
 )
 
 // Custom light theme for Clerk (when configured)

@@ -4,10 +4,11 @@ import Link from 'next/link'
 import { Logo } from '@/components/shared/logo'
 import { Sparkles, Zap, Shield, ArrowRight, CheckCircle, ExternalLink } from 'lucide-react'
 
-// Check if Clerk is configured
+// Check if Clerk is actually configured with real keys
 const CLERK_CONFIGURED = !!(
   process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
-  !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.includes('placeholder')
+  !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.includes('placeholder') &&
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.startsWith('pk_')
 )
 
 // Custom light theme for Clerk (when configured)
@@ -34,79 +35,58 @@ const userImages = [
   'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face',
 ]
 
-// Payment required sign-in page - redirects to Gumroad
-function PaymentSignIn() {
+// Simple sign-in for returning customers - redirects to PIN verification
+function SimpleSignIn() {
   return (
     <div className="w-full max-w-md">
       {/* Header */}
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-slate-900 mb-2">Get Full Access</h2>
+        <div className="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center mx-auto mb-4">
+          <Shield className="w-8 h-8 text-indigo-600" />
+        </div>
+        <h2 className="text-3xl font-bold text-slate-900 mb-2">Welcome Back</h2>
         <p className="text-slate-600">
-          Complete your purchase to unlock all 1000+ AI prompts
+          Already purchased? Access your dashboard with your PIN code.
         </p>
       </div>
 
-      {/* Purchase Card */}
+      {/* Access Card */}
       <div className="bg-slate-50 border border-slate-200 shadow-xl rounded-2xl p-8">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center">
-            <Sparkles className="w-6 h-6 text-indigo-600" />
+          <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
+            <CheckCircle className="w-6 h-6 text-green-600" />
           </div>
           <div>
-            <h3 className="font-semibold text-slate-900">Lifetime Access</h3>
-            <p className="text-slate-500 text-sm">One-time payment, forever yours</p>
+            <h3 className="font-semibold text-slate-900">Returning Customer</h3>
+            <p className="text-slate-500 text-sm">Use your purchase PIN to sign in</p>
           </div>
         </div>
 
-        {/* Price */}
-        <div className="text-center mb-6 py-4 bg-white border border-slate-200 rounded-xl">
-          <div className="flex items-center justify-center gap-3">
-            <span className="text-2xl text-slate-400 line-through">$199</span>
-            <span className="text-5xl font-bold text-slate-900">$39</span>
-          </div>
-          <span className="text-amber-600 font-semibold">80% OFF - Limited Time</span>
-        </div>
+        <p className="text-slate-600 text-sm mb-6">
+          After your Gumroad purchase, you received a 6-digit PIN code in your confirmation email.
+          Enter that PIN to access all your premium content.
+        </p>
 
-        <div className="space-y-3 mb-6">
-          <div className="flex items-center gap-2 text-slate-700">
-            <CheckCircle className="w-4 h-4 text-green-500" />
-            <span>500+ Premium AI Prompts</span>
-          </div>
-          <div className="flex items-center gap-2 text-slate-700">
-            <CheckCircle className="w-4 h-4 text-green-500" />
-            <span>500+ Bonus Prompts</span>
-          </div>
-          <div className="flex items-center gap-2 text-slate-700">
-            <CheckCircle className="w-4 h-4 text-green-500" />
-            <span>250+ n8n Automations</span>
-          </div>
-          <div className="flex items-center gap-2 text-slate-700">
-            <CheckCircle className="w-4 h-4 text-green-500" />
-            <span>Masterclass Training</span>
-          </div>
-          <div className="flex items-center gap-2 text-slate-700">
-            <CheckCircle className="w-4 h-4 text-green-500" />
-            <span>AI Tools Guide</span>
-          </div>
-          <div className="flex items-center gap-2 text-slate-700">
-            <CheckCircle className="w-4 h-4 text-green-500" />
-            <span>30-Day Money Back Guarantee</span>
-          </div>
-        </div>
-
-        <a
-          href={GUMROAD_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/verify-pin"
           className="flex items-center justify-center gap-2 w-full py-3 px-6 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg shadow-indigo-500/25 transition-all duration-200 hover:scale-[1.02]"
         >
-          Complete Purchase
-          <ExternalLink className="w-4 h-4" />
-        </a>
+          Enter PIN Code
+          <ArrowRight className="w-4 h-4" />
+        </Link>
 
-        <p className="text-center text-slate-500 text-xs mt-4">
-          Secure payment via Gumroad
-        </p>
+        <div className="mt-6 pt-6 border-t border-slate-200">
+          <p className="text-slate-500 text-sm text-center mb-4">
+            Haven&apos;t purchased yet?
+          </p>
+          <Link
+            href="/sign-up"
+            className="flex items-center justify-center gap-2 w-full py-3 px-6 bg-white border border-slate-200 hover:bg-slate-50 text-slate-900 font-semibold rounded-lg transition-all duration-200"
+          >
+            <Sparkles className="w-4 h-4 text-indigo-500" />
+            Get Full Access - $39
+          </Link>
+        </div>
       </div>
 
       {/* Additional Links */}
@@ -290,7 +270,7 @@ export default function SignInPage() {
           <Logo size="lg" />
         </div>
 
-        {CLERK_CONFIGURED ? <ClerkSignIn /> : <PaymentSignIn />}
+        {CLERK_CONFIGURED ? <ClerkSignIn /> : <SimpleSignIn />}
 
         {/* Footer */}
         <div className="mt-12 text-center">

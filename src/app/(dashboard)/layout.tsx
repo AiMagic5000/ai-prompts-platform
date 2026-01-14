@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, lazy, Suspense } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Logo } from '@/components/shared/logo'
 import { BusinessCTA } from '@/components/marketing/business-cta'
@@ -225,6 +225,39 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
 
 function DashboardContent({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const { hasPaid, isLoading } = usePayment()
+  const router = useRouter()
+
+  // Redirect to PIN verification if not verified
+  useEffect(() => {
+    if (!isLoading && !hasPaid) {
+      router.push('/verify-pin')
+    }
+  }, [hasPaid, isLoading, router])
+
+  // Show loading state while checking verification
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#0F0F23] flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-gray-400">Loading...</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Redirect if not paid (will happen in useEffect)
+  if (!hasPaid) {
+    return (
+      <div className="min-h-screen bg-[#0F0F23] flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-gray-400">Verifying access...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-[#0F0F23]">
