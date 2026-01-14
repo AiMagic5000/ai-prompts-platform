@@ -304,35 +304,43 @@ export default function AutomationsPage() {
               </motion.a>
             </div>
 
-            {/* Professional Setup Service */}
+            {/* Professional n8n Setup Service */}
             <div className="lg:w-96 bg-[#1A1A2E] border border-indigo-500/30 rounded-xl p-6">
               <div className="text-center mb-4">
-                <span className="text-indigo-400 text-sm font-semibold uppercase tracking-wide">
-                  Need Help Getting Started?
+                <span className="text-amber-400 text-sm font-semibold uppercase tracking-wide">
+                  Prompt Vault Exclusive Bonus
                 </span>
               </div>
               <h3 className="text-xl font-bold text-white text-center mb-2">
-                Professional Setup Service
+                Your Own n8n Instance
               </h3>
-              <div className="text-center mb-4">
-                <span className="text-4xl font-bold text-white line-through text-gray-500">$50</span>
-                <span className="text-2xl font-bold text-green-400 ml-2">FREE</span>
+              <div className="text-center mb-2">
+                <span className="text-gray-500 text-sm line-through">$50 setup fee</span>
+                <span className="text-green-400 font-bold ml-2">FREE</span>
               </div>
-              <p className="text-gray-400 text-center mb-4">
-                Sign up within 24 hours and get professional setup completely FREE! Our experts will configure everything for you.
+              <div className="text-center mb-4">
+                <span className="text-3xl font-bold text-white">2 Months FREE</span>
+                <p className="text-gray-400 text-sm mt-1">then just $11.95/mo</p>
+              </div>
+              <p className="text-gray-400 text-center text-sm mb-4">
+                We&apos;ll set up your own self-hosted n8n instance so you can import all automations from the training and start building your own workflows.
               </p>
               <ul className="space-y-2 mb-6">
                 <li className="flex items-center gap-2 text-gray-300 text-sm">
-                  <CheckCircle className="w-4 h-4 text-indigo-400" />
-                  Custom implementation for your business
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Your own dedicated n8n server
                 </li>
                 <li className="flex items-center gap-2 text-gray-300 text-sm">
-                  <CheckCircle className="w-4 h-4 text-indigo-400" />
-                  Full testing and optimization
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Import all 250+ automation templates
                 </li>
                 <li className="flex items-center gap-2 text-gray-300 text-sm">
-                  <CheckCircle className="w-4 h-4 text-indigo-400" />
-                  30-day support included
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Professional setup included
+                </li>
+                <li className="flex items-center gap-2 text-gray-300 text-sm">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Cancel anytime after 2 months
                 </li>
               </ul>
               <motion.a
@@ -341,9 +349,9 @@ export default function AutomationsPage() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="block w-full text-center px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-lg transition-colors"
+                className="block w-full text-center px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold rounded-lg transition-colors shadow-lg shadow-amber-500/25"
               >
-                Claim Free Setup - Sign Up Now
+                Claim Your Free n8n Setup
               </motion.a>
             </div>
           </div>
@@ -479,7 +487,7 @@ export default function AutomationsPage() {
               whileTap={{ scale: 0.98 }}
               className="inline-flex items-center gap-2 px-8 py-4 bg-indigo-500 text-white font-bold rounded-lg"
             >
-              Get Free Setup (24hr offer)
+              Get Your Own n8n - 2 Months FREE
             </motion.a>
           </div>
         </motion.div>

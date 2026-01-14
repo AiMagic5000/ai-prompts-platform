@@ -164,7 +164,7 @@ export default function VerifyPinPage() {
                     value={pin}
                     onChange={handlePinChange}
                     placeholder="000000"
-                    className={`w-full px-4 py-4 text-center text-3xl font-mono tracking-[0.5em] border rounded-xl focus:outline-none focus:ring-2 transition-all ${
+                    className={`w-full px-4 py-4 text-center text-3xl font-mono tracking-[0.5em] border rounded-xl focus:outline-none focus:ring-2 transition-all bg-white text-slate-900 placeholder:text-slate-300 ${
                       error
                         ? 'border-red-300 focus:ring-red-500/20 focus:border-red-500'
                         : 'border-slate-300 focus:ring-indigo-500/20 focus:border-indigo-500'
