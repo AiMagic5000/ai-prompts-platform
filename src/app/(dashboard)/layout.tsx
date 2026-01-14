@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Logo } from '@/components/shared/logo'
 import { BusinessCTA } from '@/components/marketing/business-cta'
 import { PaymentProvider, usePayment } from '@/contexts/payment-context'
-import { useUser, SignOutButton, SignedIn, SignedOut } from '@clerk/nextjs'
+import { CLERK_CONFIGURED, DEMO_USER } from '@/hooks/use-auth'
 import {
   LayoutDashboard,
   FileText,
@@ -27,6 +27,27 @@ import {
   Crown
 } from 'lucide-react'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
+
+// Conditionally import Clerk components
+let useUser: () => { user: any; isLoaded: boolean; isSignedIn: boolean }
+let SignOutButton: any
+let SignedIn: any
+let SignedOut: any
+
+if (CLERK_CONFIGURED) {
+  // These will be dynamically replaced at build time
+  const clerk = require('@clerk/nextjs')
+  useUser = clerk.useUser
+  SignOutButton = clerk.SignOutButton
+  SignedIn = clerk.SignedIn
+  SignedOut = clerk.SignedOut
+} else {
+  // Demo mode stubs
+  useUser = () => ({ user: DEMO_USER, isLoaded: true, isSignedIn: true })
+  SignOutButton = ({ children }: { children: React.ReactNode }) => null
+  SignedIn = ({ children }: { children: React.ReactNode }) => null
+  SignedOut = ({ children }: { children: React.ReactNode }) => children
+}
 
 const navItems = [
   { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard', free: true },
@@ -175,23 +196,31 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
               </p>
             </div>
           </div>
-          <SignedIn>
-            <SignOutButton>
-              <button className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors w-full">
-                <LogOut className="w-4 h-4" />
-                Logout
-              </button>
-            </SignOutButton>
-          </SignedIn>
-          <SignedOut>
-            <Link
-              href="/sign-in"
-              className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
-            >
-              <LogOut className="w-4 h-4" />
-              Sign In
-            </Link>
-          </SignedOut>
+          {CLERK_CONFIGURED ? (
+            <>
+              <SignedIn>
+                <SignOutButton>
+                  <button className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors w-full">
+                    <LogOut className="w-4 h-4" />
+                    Logout
+                  </button>
+                </SignOutButton>
+              </SignedIn>
+              <SignedOut>
+                <Link
+                  href="/sign-in"
+                  className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Sign In
+                </Link>
+              </SignedOut>
+            </>
+          ) : (
+            <div className="px-3 py-2 text-sm text-gray-500">
+              Demo Mode
+            </div>
+          )}
         </div>
       </aside>
     </>
