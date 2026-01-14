@@ -4,10 +4,10 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
+import dynamic from 'next/dynamic'
 import { Logo } from '@/components/shared/logo'
 import { BusinessCTA } from '@/components/marketing/business-cta'
 import { PaymentProvider, usePayment } from '@/contexts/payment-context'
-import { CLERK_CONFIGURED, DEMO_USER } from '@/hooks/use-auth'
 import {
   LayoutDashboard,
   FileText,
@@ -21,33 +21,47 @@ import {
   Menu,
   X,
   User,
-  LogOut,
   Zap,
   Lock,
   Crown
 } from 'lucide-react'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 
-// Conditionally import Clerk components
-let useUser: () => { user: any; isLoaded: boolean; isSignedIn: boolean }
-let SignOutButton: any
-let SignedIn: any
-let SignedOut: any
+// Check if Clerk is configured
+const CLERK_CONFIGURED = !!(
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
+  !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.includes('placeholder')
+)
 
-if (CLERK_CONFIGURED) {
-  // These will be dynamically replaced at build time
-  const clerk = require('@clerk/nextjs')
-  useUser = clerk.useUser
-  SignOutButton = clerk.SignOutButton
-  SignedIn = clerk.SignedIn
-  SignedOut = clerk.SignedOut
-} else {
-  // Demo mode stubs
-  useUser = () => ({ user: DEMO_USER, isLoaded: true, isSignedIn: true })
-  SignOutButton = ({ children }: { children: React.ReactNode }) => null
-  SignedIn = ({ children }: { children: React.ReactNode }) => null
-  SignedOut = ({ children }: { children: React.ReactNode }) => children
+// Mock user object for demo mode
+const DEMO_USER = {
+  id: 'demo-user',
+  firstName: 'Demo',
+  lastName: 'User',
+  emailAddresses: [{ emailAddress: 'demo@example.com' }],
+  imageUrl: null,
 }
+
+// Dynamically import Clerk components only when configured
+const ClerkUserSection = CLERK_CONFIGURED
+  ? dynamic(
+      () => import('@/components/dashboard/clerk-user-section').then((mod) => mod.ClerkUserSection),
+      {
+        ssr: false,
+        loading: () => <UserSectionFallback hasPaid={false} />,
+      }
+    )
+  : null
+
+const ClerkUserAvatar = CLERK_CONFIGURED
+  ? dynamic(
+      () => import('@/components/dashboard/clerk-user-section').then((mod) => mod.ClerkUserAvatar),
+      {
+        ssr: false,
+        loading: () => <UserAvatarFallback />,
+      }
+    )
+  : null
 
 const navItems = [
   { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard', free: true },
@@ -62,10 +76,56 @@ const navItems = [
   { href: '/dashboard/settings', icon: Settings, label: 'Settings', free: true },
 ]
 
+// Fallback components for demo mode
+function UserSectionFallback({ hasPaid }: { hasPaid: boolean }) {
+  return (
+    <div className="p-4 border-t border-gray-800">
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center">
+          <User className="w-5 h-5 text-indigo-400" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium text-white truncate">
+            {DEMO_USER.firstName}
+          </p>
+          <p className="text-xs text-gray-500">
+            {hasPaid ? 'Lifetime Access' : 'Free Account'}
+          </p>
+        </div>
+      </div>
+      <div className="px-3 py-2 text-sm text-gray-500">
+        Demo Mode
+      </div>
+    </div>
+  )
+}
+
+function UserAvatarFallback() {
+  return (
+    <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center">
+      <User className="w-5 h-5 text-indigo-400" />
+    </div>
+  )
+}
+
+// Wrapper components
+function UserSection({ hasPaid }: { hasPaid: boolean }) {
+  if (!CLERK_CONFIGURED || !ClerkUserSection) {
+    return <UserSectionFallback hasPaid={hasPaid} />
+  }
+  return <ClerkUserSection hasPaid={hasPaid} />
+}
+
+function UserAvatar() {
+  if (!CLERK_CONFIGURED || !ClerkUserAvatar) {
+    return <UserAvatarFallback />
+  }
+  return <ClerkUserAvatar />
+}
+
 function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const pathname = usePathname()
   const { hasPaid } = usePayment()
-  const { user } = useUser()
 
   return (
     <>
@@ -178,50 +238,7 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
         </div>
 
         {/* User Section */}
-        <div className="p-4 border-t border-gray-800">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center overflow-hidden">
-              {user?.imageUrl ? (
-                <img src={user.imageUrl} alt="" className="w-full h-full object-cover" />
-              ) : (
-                <User className="w-5 h-5 text-indigo-400" />
-              )}
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white truncate">
-                {user?.firstName || user?.emailAddresses?.[0]?.emailAddress || 'Member'}
-              </p>
-              <p className="text-xs text-gray-500">
-                {hasPaid ? 'Lifetime Access' : 'Free Account'}
-              </p>
-            </div>
-          </div>
-          {CLERK_CONFIGURED ? (
-            <>
-              <SignedIn>
-                <SignOutButton>
-                  <button className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors w-full">
-                    <LogOut className="w-4 h-4" />
-                    Logout
-                  </button>
-                </SignOutButton>
-              </SignedIn>
-              <SignedOut>
-                <Link
-                  href="/sign-in"
-                  className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
-                >
-                  <LogOut className="w-4 h-4" />
-                  Sign In
-                </Link>
-              </SignedOut>
-            </>
-          ) : (
-            <div className="px-3 py-2 text-sm text-gray-500">
-              Demo Mode
-            </div>
-          )}
-        </div>
+        <UserSection hasPaid={hasPaid} />
       </aside>
     </>
   )
@@ -229,7 +246,6 @@ function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
 
 function DashboardContent({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const { user } = useUser()
 
   return (
     <div className="min-h-screen bg-[#0F0F23]">
@@ -245,13 +261,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
         <Logo size="sm" />
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center overflow-hidden">
-            {user?.imageUrl ? (
-              <img src={user.imageUrl} alt="" className="w-full h-full object-cover" />
-            ) : (
-              <User className="w-5 h-5 text-indigo-400" />
-            )}
-          </div>
+          <UserAvatar />
         </div>
       </header>
 
