@@ -254,7 +254,7 @@ export default function SettingsPage() {
 
                   <div className="pt-4 border-t border-gray-800">
                     <a
-                      href="https://alwaysencrypted.gumroad.com/l/ai-prompts-library"
+                      href="https://coreypearson.gumroad.com/l/eayfol"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 text-sm"

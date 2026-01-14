@@ -25,8 +25,8 @@ const bonuses = [
   { label: 'Weekly New Prompts Drop', value: '$97/yr value', highlight: false },
 ]
 
-// Gumroad product URL - update with actual product link
-const GUMROAD_URL = 'https://alwaysencrypted.gumroad.com/l/ai-prompts-library'
+// Gumroad product URL
+const GUMROAD_URL = 'https://coreypearson.gumroad.com/l/eayfol'
 
 export function PricingCard() {
   return (

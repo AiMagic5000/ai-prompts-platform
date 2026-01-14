@@ -8,8 +8,8 @@ interface PaywallProps {
   variant?: 'overlay' | 'card' | 'inline'
 }
 
-// Gumroad payment link - update this with real link
-const GUMROAD_LINK = 'https://gumroad.com/l/ai-prompts-library'
+// Gumroad payment link
+const GUMROAD_LINK = 'https://coreypearson.gumroad.com/l/eayfol'
 
 export function Paywall({ variant = 'overlay' }: PaywallProps) {
   if (variant === 'card') {
