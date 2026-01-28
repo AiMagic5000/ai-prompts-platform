@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import { ConditionalClerkProvider } from "@/components/providers/clerk-provider"
 import { ThemeProvider } from "@/components/providers/theme-provider"
+import { ToastProvider } from "@/components/ui/toast"
 import "./globals.css"
 
 export const dynamic = 'force-dynamic'
@@ -100,7 +101,9 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <ConditionalClerkProvider>
-            {children}
+            <ToastProvider>
+              {children}
+            </ToastProvider>
           </ConditionalClerkProvider>
         </ThemeProvider>
       </body>

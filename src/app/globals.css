@@ -175,10 +175,38 @@
 
 /* Base layer for common styles */
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     font-family: var(--font-sans);
     background-color: var(--background);
     color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Selection colors */
+  ::selection {
+    background-color: rgba(99, 102, 241, 0.3);
+    color: white;
+  }
+  
+  /* Focus visible styles */
+  :focus-visible {
+    outline: 2px solid rgba(99, 102, 241, 0.5);
+    outline-offset: 2px;
+  }
+  
+  /* Smooth image loading */
+  img {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  
+  img[loading] {
+    opacity: 0;
   }
 }
 
