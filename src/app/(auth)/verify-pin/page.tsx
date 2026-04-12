@@ -7,7 +7,7 @@ import { Logo } from '@/components/shared/logo'
 import { Shield, ArrowRight, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
 
 // The universal PIN code for verified purchasers
-const VALID_PIN = '197019'
+const VALID_PIN = '891691'
 
 export default function VerifyPinPage() {
   const router = useRouter()
