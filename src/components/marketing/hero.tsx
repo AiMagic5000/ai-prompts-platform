@@ -98,7 +98,7 @@ export function Hero() {
                 <span className="text-sm font-medium text-slate-300">
                   <span className="text-gradient font-semibold">2026&apos;s #1</span> AI Prompts Library
                 </span>
-                <ChevronRight className="w-4 h-4 text-slate-500 group-hover:translate-x-0.5 transition-transform" />
+                <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </motion.div>
 
@@ -188,11 +188,11 @@ export function Hero() {
                 </div>
 
                 <div className="flex items-center justify-center gap-4 mb-4 mt-2">
-                  <span className="text-3xl text-slate-500 line-through font-light">$97</span>
+                  <span className="text-3xl text-slate-400 line-through font-light">$97</span>
                   <span className="text-6xl font-bold text-white">$39</span>
                 </div>
 
-                <p className="text-sm text-slate-400 mb-6">One-time payment -- Lifetime access -- No subscriptions</p>
+                <p className="text-sm text-slate-300 mb-6">One-time payment -- Lifetime access -- No subscriptions</p>
 
                 {/* CTA */}
                 <motion.div
@@ -209,7 +209,7 @@ export function Hero() {
                 </motion.div>
 
                 {/* Trust */}
-                <div className="flex items-center justify-center gap-4 mt-4 text-xs text-slate-500">
+                <div className="flex items-center justify-center gap-4 mt-4 text-xs text-slate-300">
                   <span className="flex items-center gap-1">
                     <Shield className="w-3.5 h-3.5 text-emerald-500" />
                     30-Day Guarantee

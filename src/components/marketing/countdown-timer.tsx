@@ -67,10 +67,10 @@ export function CountdownTimer({
             key="countdown-expired"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200 ${className}`}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 ${className}`}
           >
             <Clock className="w-4 h-4 text-slate-400" />
-            <span className="text-sm text-slate-600">
+            <span className="text-sm text-slate-300">
               Bonus period ended
             </span>
           </motion.div>
@@ -171,7 +171,7 @@ export function CountdownTimer({
               <TimeUnit value={seconds} label="Seconds" animate />
             </div>
 
-            <div className="mt-4 text-center text-sm text-slate-500">
+            <div className="mt-4 text-center text-sm text-slate-300">
               Total Value: $438+ for just $39
             </div>
           </>
@@ -251,7 +251,7 @@ function TimeUnit({
           {formatTime(value)}
         </span>
       </motion.div>
-      <span className="text-xs text-slate-500 mt-1">{label}</span>
+      <span className="text-xs text-slate-400 mt-1">{label}</span>
     </div>
   )
 }
