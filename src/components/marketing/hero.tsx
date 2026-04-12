@@ -54,9 +54,7 @@ export function Hero() {
     target: containerRef,
     offset: ['start start', 'end start'],
   })
-
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '15%'])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -77,7 +75,7 @@ export function Hero() {
       {/* Subtle grid */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(124,58,237,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(124,58,237,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
 
-      <motion.div style={{ y, opacity }} className="relative z-10">
+      <motion.div style={{ y }} className="relative z-10">
         <div className="container mx-auto px-4 pt-24 pb-16 lg:pt-32 lg:pb-24">
           <div className="max-w-5xl mx-auto text-center">
 
@@ -283,8 +281,6 @@ export function Hero() {
         </div>
       </motion.div>
 
-      {/* Bottom fade to white */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent pointer-events-none" />
     </section>
   )
 }
