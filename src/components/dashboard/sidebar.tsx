@@ -62,7 +62,7 @@ export function DashboardSidebar() {
                 exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.15 }}
               >
-                <Logo variant="dark" />
+                <Logo variant="full" />
               </motion.div>
             )}
           </AnimatePresence>
