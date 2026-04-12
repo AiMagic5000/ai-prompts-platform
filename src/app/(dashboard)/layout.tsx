@@ -260,7 +260,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#0F0F23]">
+    <div className="min-h-screen bg-[#0F0F23]" data-dashboard>
       {/* Mobile Header */}
       <header className="lg:hidden sticky top-0 z-30 bg-[#0a0a1a] border-b border-gray-800 px-4 py-3 flex items-center justify-between">
         <button
