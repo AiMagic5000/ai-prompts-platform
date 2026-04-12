@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { Star, Quote } from 'lucide-react'
-import Image from 'next/image'
 
 interface Testimonial {
   name: string
@@ -66,12 +65,12 @@ const testimonials: Testimonial[] = [
 
 function StarRating({ rating }: { rating: number }) {
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-0.5">
       {[...Array(5)].map((_, i) => (
         <Star
           key={i}
           className={`w-4 h-4 ${
-            i < rating ? 'fill-amber-400 text-amber-400' : 'text-gray-600'
+            i < rating ? 'fill-amber-400 text-amber-400' : 'text-slate-600'
           }`}
         />
       ))}
@@ -81,29 +80,29 @@ function StarRating({ rating }: { rating: number }) {
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="py-20 bg-slate-50">
+    <section id="testimonials" className="py-24 bg-[#151d2e]">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-600 text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-violet-400 text-sm font-semibold mb-4">
             Testimonials
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-            What Our Customers Say
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            What Our <span className="text-gradient">Customers Say</span>
           </h2>
-          <p className="text-slate-600 max-w-2xl mx-auto">
+          <p className="text-slate-400 max-w-2xl mx-auto">
             Join thousands of professionals who have transformed their workflow with our expert-crafted AI prompts.
           </p>
         </motion.div>
 
-        {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
@@ -111,26 +110,20 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-xl p-6 border border-slate-200 hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 transition-all"
+              className="bg-white/5 rounded-xl p-6 border border-white/5 hover:border-violet-500/20 hover:bg-white/[0.07] transition-all duration-300"
             >
-              {/* Quote Icon */}
-              <div className="mb-4">
-                <Quote className="w-8 h-8 text-indigo-500/30" />
-              </div>
+              <Quote className="w-8 h-8 text-violet-500/30 mb-4" />
 
-              {/* Quote Text */}
-              <p className="text-slate-700 mb-6 leading-relaxed">
+              <p className="text-slate-300 mb-6 leading-relaxed text-sm">
                 &ldquo;{testimonial.quote}&rdquo;
               </p>
 
-              {/* Rating */}
               <div className="mb-4">
                 <StarRating rating={testimonial.rating} />
               </div>
 
-              {/* Author Info */}
               <div className="flex items-center gap-3">
-                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-slate-100">
+                <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-violet-500/20">
                   <img
                     src={testimonial.avatar}
                     alt={testimonial.name}
@@ -138,8 +131,8 @@ export function Testimonials() {
                   />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900">{testimonial.name}</h4>
-                  <p className="text-sm text-slate-500">
+                  <h4 className="font-medium text-white text-sm">{testimonial.name}</h4>
+                  <p className="text-xs text-slate-500">
                     {testimonial.role}, {testimonial.company}
                   </p>
                 </div>
@@ -148,13 +141,13 @@ export function Testimonials() {
           ))}
         </div>
 
-        {/* Social Proof Stats */}
+        {/* Stats */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6"
+          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
         >
           {[
             { value: '2,500+', label: 'Happy Customers' },
@@ -168,9 +161,9 @@ export function Testimonials() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
-              className="text-center p-4 bg-white rounded-lg border border-slate-200 shadow-sm"
+              className="text-center p-5 bg-white/5 rounded-xl border border-white/5"
             >
-              <div className="text-2xl md:text-3xl font-bold text-slate-900 mb-1">
+              <div className="text-2xl md:text-3xl font-bold text-white mb-1">
                 {stat.value}
               </div>
               <div className="text-sm text-slate-500">{stat.label}</div>

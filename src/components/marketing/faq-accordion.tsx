@@ -55,19 +55,19 @@ function FAQItem({ faq, index }: { faq: typeof faqs[0]; index: number }) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      className="border border-slate-200 rounded-xl overflow-hidden bg-white hover:border-indigo-500/50 hover:shadow-md transition-all"
+      transition={{ delay: index * 0.05 }}
+      className="border border-white/5 rounded-xl overflow-hidden bg-white/[0.03] hover:bg-white/[0.05] hover:border-violet-500/20 transition-all"
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between w-full px-6 py-4 text-left"
+        className="flex items-center justify-between w-full px-6 py-5 text-left"
       >
-        <span className="font-medium text-slate-900 pr-4">{faq.question}</span>
+        <span className="font-medium text-white pr-4">{faq.question}</span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
         >
-          <ChevronDown className="h-5 w-5 text-slate-400 shrink-0" />
+          <ChevronDown className="h-5 w-5 text-violet-400 shrink-0" />
         </motion.div>
       </button>
       <AnimatePresence>
@@ -78,7 +78,7 @@ function FAQItem({ faq, index }: { faq: typeof faqs[0]; index: number }) {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="px-6 pb-4 text-slate-600">
+            <div className="px-6 pb-5 text-slate-400 leading-relaxed">
               {faq.answer}
             </div>
           </motion.div>
@@ -90,7 +90,7 @@ function FAQItem({ faq, index }: { faq: typeof faqs[0]; index: number }) {
 
 export function FAQAccordion() {
   return (
-    <section id="faq" className="py-20 bg-slate-50">
+    <section id="faq" className="py-24 bg-[#1b2941]">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -99,25 +99,25 @@ export function FAQAccordion() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-600 text-sm font-medium mb-4">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-violet-400 text-sm font-semibold mb-4">
             <HelpCircle className="w-4 h-4" />
             FAQ
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-            Frequently Asked Questions
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            Frequently Asked <span className="text-gradient">Questions</span>
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
             Got questions? We&apos;ve got answers.
           </p>
         </motion.div>
 
-        <div className="max-w-3xl mx-auto space-y-4">
+        <div className="max-w-3xl mx-auto space-y-3">
           {faqs.map((faq, index) => (
             <FAQItem key={index} faq={faq} index={index} />
           ))}
         </div>
 
-        {/* Contact CTA */}
+        {/* Contact */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -125,20 +125,20 @@ export function FAQAccordion() {
           transition={{ delay: 0.5 }}
           className="mt-12 text-center"
         >
-          <p className="text-slate-600 mb-4">
+          <p className="text-slate-500 mb-4">
             Still have questions?
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
             <a
               href="mailto:support@startmybusiness.us"
-              className="text-indigo-600 hover:text-indigo-500 transition-colors"
+              className="text-violet-400 hover:text-violet-300 transition-colors"
             >
               support@startmybusiness.us
             </a>
-            <span className="hidden sm:block text-slate-300">|</span>
+            <span className="hidden sm:block text-slate-600">|</span>
             <a
               href="tel:888-534-4145"
-              className="text-indigo-600 hover:text-indigo-500 transition-colors"
+              className="text-violet-400 hover:text-violet-300 transition-colors"
             >
               888-534-4145
             </a>

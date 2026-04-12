@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Sparkles, ChevronDown, User, LogIn } from 'lucide-react'
+import { Menu, X, Sparkles, LogIn } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Logo } from '@/components/shared/logo'
 import { CountdownTimer } from '@/components/marketing/countdown-timer'
@@ -21,14 +21,14 @@ export function Header() {
   return (
     <>
       {/* Top Banner with Countdown */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 py-2">
+      <div className="bg-gradient-to-r from-violet-600 via-purple-600 to-fuchsia-600 py-2">
         <div className="container mx-auto px-4 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
           <CountdownTimer variant="header" showBonus />
         </div>
       </div>
 
       {/* Main Header */}
-      <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+      <header className="sticky top-0 z-50 w-full bg-[#0f0f1a]/95 backdrop-blur-xl border-b border-white/5">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Logo size="md" />
 
@@ -38,7 +38,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
+                className="text-sm font-medium text-slate-400 hover:text-white transition-colors"
               >
                 {link.label}
               </Link>
@@ -46,9 +46,9 @@ export function Header() {
           </nav>
 
           {/* Right Side Actions */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <Link href="/sign-in">
-              <Button variant="outline" className="hidden sm:flex items-center gap-2 text-slate-700 border-slate-300 hover:bg-slate-50 hover:border-slate-400">
+              <Button variant="outline" className="hidden sm:flex items-center gap-2 text-slate-300 border-white/10 bg-white/5 hover:bg-white/10 hover:text-white hover:border-white/20">
                 <LogIn className="w-4 h-4" />
                 Login
               </Button>
@@ -60,7 +60,7 @@ export function Header() {
             >
               <Button
                 asChild
-                className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold shadow-lg shadow-indigo-500/25"
+                className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-semibold shadow-lg shadow-violet-500/25 border-0"
               >
                 <Link href="/#pricing" className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4" />
@@ -72,7 +72,7 @@ export function Header() {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden p-2 text-slate-600"
+              className="md:hidden p-2 text-slate-400 hover:text-white"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -88,7 +88,7 @@ export function Header() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-slate-200 bg-white"
+              className="md:hidden border-t border-white/5 bg-[#0f0f1a]"
             >
               <nav className="container mx-auto px-4 py-4 space-y-2">
                 {navLinks.map((link, index) => (
@@ -100,7 +100,7 @@ export function Header() {
                   >
                     <Link
                       href={link.href}
-                      className="block py-2 text-slate-600 font-medium hover:text-slate-900"
+                      className="block py-2 text-slate-400 font-medium hover:text-white"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {link.label}
@@ -111,7 +111,7 @@ export function Header() {
                 <div className="pt-4 space-y-3">
                   <Link
                     href="/sign-in"
-                    className="flex items-center gap-2 py-2 text-slate-600 font-medium"
+                    className="flex items-center gap-2 py-2 text-slate-400 font-medium hover:text-white"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <LogIn className="w-4 h-4" />
@@ -119,7 +119,7 @@ export function Header() {
                   </Link>
                   <Button
                     asChild
-                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700"
+                    className="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white border-0"
                   >
                     <Link href="/#pricing" onClick={() => setMobileMenuOpen(false)}>
                       Get Access - $39

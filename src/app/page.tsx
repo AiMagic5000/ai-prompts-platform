@@ -33,7 +33,7 @@ export default function Home() {
   const faqSchema = generateFAQSchema(faqs)
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       {/* JSON-LD Schema */}
       <script
         type="application/ld+json"

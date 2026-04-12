@@ -123,11 +123,11 @@ Secondary keywords: [SECONDARY KEYWORDS]`,
 type TabKey = keyof typeof samplePrompts
 
 const tabs: { key: TabKey; label: string; icon: string }[] = [
-  { key: 'chatgpt', label: 'ChatGPT', icon: '🤖' },
-  { key: 'claude', label: 'Claude', icon: '🧠' },
-  { key: 'image', label: 'Image', icon: '🎨' },
-  { key: 'video', label: 'Video', icon: '🎬' },
-  { key: 'seo', label: 'SEO', icon: '📈' },
+  { key: 'chatgpt', label: 'ChatGPT', icon: '\u{1F916}' },
+  { key: 'claude', label: 'Claude', icon: '\u{1F9E0}' },
+  { key: 'image', label: 'Image', icon: '\u{1F3A8}' },
+  { key: 'video', label: 'Video', icon: '\u{1F3AC}' },
+  { key: 'seo', label: 'SEO', icon: '\u{1F4C8}' },
 ]
 
 export function SamplePrompts() {
@@ -141,7 +141,7 @@ export function SamplePrompts() {
   }
 
   return (
-    <section id="samples" className="py-20 bg-white">
+    <section id="samples" className="py-24 bg-slate-50">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -150,14 +150,14 @@ export function SamplePrompts() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/10 text-purple-600 text-sm font-medium mb-4">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-100 text-violet-700 text-sm font-semibold mb-4">
             <Sparkles className="w-4 h-4" />
             Try Before You Buy
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-            Sample Prompts
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
+            Sample <span className="text-gradient">Prompts</span>
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto">
             Here&apos;s a taste of what&apos;s inside. Copy any of these and see the difference quality prompts make.
           </p>
         </motion.div>
@@ -170,15 +170,15 @@ export function SamplePrompts() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="flex justify-center mb-8 overflow-x-auto pb-2"
         >
-          <div className="inline-flex bg-slate-100 rounded-xl p-1.5 border border-slate-200">
+          <div className="inline-flex bg-white rounded-xl p-1.5 border border-slate-200 shadow-sm">
             {tabs.map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
                   activeTab === tab.key
-                    ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/25'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-white'
+                    ? 'bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-500/25'
+                    : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
                 }`}
               >
                 <span>{tab.icon}</span>
@@ -188,7 +188,7 @@ export function SamplePrompts() {
           </div>
         </motion.div>
 
-        {/* Prompt Cards */}
+        {/* Cards */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -204,28 +204,28 @@ export function SamplePrompts() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl border border-slate-200 overflow-hidden hover:border-indigo-500/50 hover:shadow-lg hover:shadow-indigo-500/10 transition-all"
+                className="bg-white rounded-xl border border-slate-200 overflow-hidden hover:border-violet-300 hover:shadow-lg hover:shadow-violet-500/5 transition-all"
               >
                 <div className="p-5 border-b border-slate-100">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="px-2 py-1 bg-indigo-500/10 text-indigo-600 text-xs font-medium rounded">
+                    <span className="px-2.5 py-1 bg-violet-50 text-violet-700 text-xs font-semibold rounded-md">
                       {prompt.category}
                     </span>
                   </div>
                   <h3 className="font-semibold text-lg text-slate-900">{prompt.title}</h3>
                 </div>
-                <div className="p-5 bg-slate-50">
-                  <div className="bg-white rounded-lg p-4 font-mono text-sm text-slate-700 max-h-48 overflow-y-auto border border-slate-200">
+                <div className="p-5 bg-slate-50/50">
+                  <div className="bg-white rounded-lg p-4 font-mono text-sm text-slate-600 max-h-48 overflow-y-auto border border-slate-200">
                     <pre className="whitespace-pre-wrap">{prompt.prompt}</pre>
                   </div>
                   <motion.button
                     onClick={() => handleCopy(prompt.prompt, index)}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className={`w-full mt-4 py-3 px-4 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors ${
+                    className={`w-full mt-4 py-3 px-4 rounded-lg font-medium flex items-center justify-center gap-2 transition-all ${
                       copiedIndex === index
-                        ? 'bg-green-500/10 text-green-600 border border-green-500/30'
-                        : 'bg-indigo-500/10 text-indigo-600 border border-indigo-500/30 hover:bg-indigo-500/20'
+                        ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
+                        : 'bg-violet-50 text-violet-700 border border-violet-200 hover:bg-violet-100'
                     }`}
                   >
                     {copiedIndex === index ? (
@@ -254,7 +254,7 @@ export function SamplePrompts() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="text-center mt-12"
         >
-          <p className="text-slate-600 mb-4">
+          <p className="text-slate-500 mb-4">
             This is just a sample of 500+ prompts. Get the complete library.
           </p>
           <motion.div
@@ -264,7 +264,7 @@ export function SamplePrompts() {
             <Button
               asChild
               size="lg"
-              className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold shadow-lg shadow-indigo-500/25"
+              className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white font-semibold shadow-lg shadow-violet-500/25 border-0"
             >
               <Link href="/#pricing" className="flex items-center gap-2">
                 Get All 500+ Prompts
